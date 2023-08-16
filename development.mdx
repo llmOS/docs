@@ -1,98 +1,76 @@
 ---
 title: 'Development'
-description: 'Learn how to preview changes locally'
+description: 'Learn how to setup the development environment'
 ---
+OpenCopilot is built modularly so you can customize it further based on your own needs easily.
 
-<Info>
-  **Prerequisite** You should have installed Node.js (version 18.10.0 or
-  higher).
-</Info>
+## 1. Backend
 
-Step 1. Install Mintlify on your OS:
+Create `backend/.env` if it has not been created through `python cli.py create`:
 
-<CodeGroup>
-
-```bash npm
-npm i -g mintlify
+```shell
+cd backend
+cp template.env .env
 ```
 
-```bash yarn
-yarn global add mintlify
+Spin up Weaviate for vector storage:
+
+```shell
+docker-compose -f docker-compose-weaviate.yml up -d
 ```
 
-</CodeGroup>
-
-Step 2. Go to the docs are located (where you can find `mint.json`) and run the following command:
-
-```bash
-mintlify dev
+Setup conda environment
+```shell
+conda env create -f environment.yml
+conda activate backend-service
 ```
 
-The documentation website is now available at `http://localhost:3000`.
+Ingest data - ***You will need to repeat this step each time you add new data in the data folder***
 
-### Custom Ports
+***Optional***: To improve document loading experience, use
+[libmagic1](https://github.com/ahupp/python-magic#installation) and
+[tesseract](https://github.com/madmaze/pytesseract#installation) libraries
 
-Mintlify uses port 3000 by default. You can use the `--port` flag to customize the port Mintlify runs on. For example, use this command to run in port 3333:
-
-```bash
-mintlify dev --port 3333
+```shell
+python ingest_data.py
 ```
 
-You will see an error like this if you try to run Mintlify in a port that's already taken:
+Run backend REST AP:
 
-```md
-Error: listen EADDRINUSE: address already in use :::3000
+```shell
+python wsgi.py
 ```
 
-## Mintlify Versions
-
-Each CLI is linked to a specific version of Mintlify. Please update the CLI if your local website looks different than production.
-
-<CodeGroup>
-
-```bash npm
-npm i -g mintlify@latest
+After some time you should see
+```
+..........
+INFO:     Application startup complete.
 ```
 
-```bash yarn
-yarn global upgrade mintlify
+Visit [0.0.0.0:3000/docs](http://0.0.0.0:3000/docs) to verify.
+
+## 2. Frontend
+
+Create `frontend/.env` if it has not been created through `python cli.py create`:
+
+```shell
+cd frontend
+cp .env.example .env
 ```
 
-</CodeGroup>
+Install dependencies
+```
+pnpm install
+```
 
-## Deployment
+Run frontend app:
+```
+pnpm run dev
+```
 
-<Tip>
-  Unlimited editors available under the [Startup
-  Plan](https://mintlify.com/pricing)
-</Tip>
+Visit [localhost:3001](localhost:3001) to verify.
 
-You should see the following if the deploy successfully went through:
 
-<Frame>
-  <img src="/images/checks-passed.png" style={{ borderRadius: '0.5rem' }} />
-</Frame>
+You are now ready to change any part of the copilot!
 
-## Troubleshooting
-
-Here's how to solve some common problems when working with the CLI.
-
-<AccordionGroup>
-  <Accordion title="Mintlify is not loading">
-    Update to Node v18. Run `mintlify install` and try again.
-  </Accordion>
-  <Accordion title="No such file or directory on Windows">
-Go to the `C:/Users/Username/.mintlify/` directory and remove the `mint`
-folder. Then Open the Git Bash in this location and run `git clone
-https://github.com/mintlify/mint.git`.
-
-Repeat step 3.
-
-  </Accordion>
-  <Accordion title="Getting an unknown error">
-    Try navigating to the root of your device and delete the ~/.mintlify folder.
-    Then run `mintlify dev` again.
-  </Accordion>
-</AccordionGroup>
-
-Curious about what changed in a CLI version? [Check out the CLI changelog.](/changelog/command-line)
+**You need to restart the docker services to deploy the changes.**

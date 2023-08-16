@@ -1,0 +1,56 @@
+---
+title: "Customizing Your Copilot"
+description: ""
+---
+
+There are three main ways you can customize your copilot: _Knowledge base_ and _Prompts_ that change the copilot's behaviour, and _Front-end configuration_ that changes how it is presented. To see these in action, you can check out several examples in the `copilots/` directory -- to use one of the provided examples, just copy over the relevant files.
+
+### Knowledge base
+
+The [**knowledge base**] is the set of documents that your copilot relies on when responding to you - you can think of it as the things you've taught it. The copilot has access to everything here when trying to answer your questions. To add things into the knowledge base, just drop files into `copilots/<my-copilot>/data/` directory.
+
+The following file formats are supported:
+
+* `pdf` files
+* `csv`, `tsv` and `xls`/`xlsx` (Excel) files
+* `txt` files
+* `json` files
+
+Thus, to add new knowledge and your own data to the Copilot simply add your own files to `copilots/<my-copilot>/data` folder and run:
+
+```bash
+opencopilot restart
+```
+
+This will chunk the files, embed them and add them to the vector store so your Copilot can access it. **You need to restart the Copilot in order to ingest new data.**
+
+### Prompt Engineering
+
+In the `copilots/<my-copilot>/prompts/prompt_template.txt` you instruct your copilot about its goals, behaviour, style, etc. There aren't many hard rules to this; you can start from one of our provided [copilots](https://github.com/nftport/opencopilot/tree/master/copilots) and iterate to improve the copilot's behaviour. Prompt engineering is a deep topic; for a more in-depth overview, see [OpenAI's list of prompting guides](https://github.com/openai/openai-cookbook#prompting-guides). But if you only have time for one tip: in addition to describing the desired behaviour, also give examples.
+
+The prompt is not a static piece of text. It is a template that will be filled at runtime, after the user has messaged the copilot but before sending the request to the LLM. For this reason, you should always place three template variables into the prompt template file (ideally at the end), and they will be substituted as follows:
+
+* `{context}`: the most relevant documents retrieved from your [knowledge base](#knowledge-base).
+* `{history}`: the conversation history between the user and the copilot.
+* `{question}`: the most recent input from the user -- the message they just sent.
+
+**Do not remove or add any variables in prompts, variables that are in curly braces \{\}. (For example: \{context\})**
+
+Hot-loading is supported meaning you can change the prompt file any time and during next request, Copilot will use the updated prompt.
+
+### Testing
+
+You can use Debug mode in the front-end which helps you test and iterate your Copilot.
+
+<img noZoom alt="Debug mode" src="https://i.imgur.com/MhZaadl.png"/>
+
+### Evaluating
+
+You can evaluate the performance of your copilot, by adding questions and expected answers to `copilots/<my-copilot>/eval_data/endtoend_human.json`,
+and running:
+```bash
+opencopilot evaluate
+```
+To see an example of this, check the file in `copilots/rpm/eval_data/endtoend_human.json`.
+
+This is especially helpful in trying to figure out if some data changes or prompt changes actually made the copilot better.
