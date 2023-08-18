@@ -30,7 +30,7 @@
     {
       "name": "GitHub",
       "icon": "github",
-      "url": "https://github.com/loopholelabs/frpc-go"
+      "url": "https://github.com/opencopilotdev/opencopilot"
     },
     {
       "name": "Twitter",
@@ -44,8 +44,8 @@
       "pages": ["introduction", "getting-started"]
     },
     {
-      "group": "Improve Your Copilot",
-      "pages": ["improve/customize", "improve/integrate", "improve/stack"]
+      "group": "How to improve your copilot",
+      "pages": ["improve/index", "improve/prompting", "improve/knowledge-base", "improve/dynamic-context", "improve/evaluation"]
     }
   ],
   "footerSocials": {
