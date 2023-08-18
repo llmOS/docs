@@ -41,11 +41,15 @@
   "navigation": [
     {
       "group": "Welcome",
-      "pages": ["introduction", "getting-started"]
+      "pages": ["welcome/introduction", "welcome/getting-started", "welcome/concepts"]
     },
     {
       "group": "How to improve your copilot",
       "pages": ["improve/index", "improve/prompting", "improve/knowledge-base", "improve/dynamic-context", "improve/evaluation"]
+    },
+    {
+      "group": "Integrate your copilot",
+      "pages": ["integrate/rest-api", "integrate/deploy"]
     }
   ],
   "footerSocials": {
