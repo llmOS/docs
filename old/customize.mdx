@@ -24,20 +24,6 @@ opencopilot restart
 
 This will chunk the files, embed them and add them to the vector store so your Copilot can access it. **You need to restart the Copilot in order to ingest new data.**
 
-### Prompt Engineering
-
-In the `copilots/<my-copilot>/prompts/prompt_template.txt` you instruct your copilot about its goals, behaviour, style, etc. There aren't many hard rules to this; you can start from one of our provided [copilots](https://github.com/nftport/opencopilot/tree/master/copilots) and iterate to improve the copilot's behaviour. Prompt engineering is a deep topic; for a more in-depth overview, see [OpenAI's list of prompting guides](https://github.com/openai/openai-cookbook#prompting-guides). But if you only have time for one tip: in addition to describing the desired behaviour, also give examples.
-
-The prompt is not a static piece of text. It is a template that will be filled at runtime, after the user has messaged the copilot but before sending the request to the LLM. For this reason, you should always place three template variables into the prompt template file (ideally at the end), and they will be substituted as follows:
-
-* `{context}`: the most relevant documents retrieved from your [knowledge base](#knowledge-base).
-* `{history}`: the conversation history between the user and the copilot.
-* `{question}`: the most recent input from the user -- the message they just sent.
-
-**Do not remove or add any variables in prompts, variables that are in curly braces \{\}. (For example: \{context\})**
-
-Hot-loading is supported meaning you can change the prompt file any time and during next request, Copilot will use the updated prompt.
-
 ### Testing
 
 You can use Debug mode in the front-end which helps you test and iterate your Copilot.
