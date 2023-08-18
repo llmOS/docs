@@ -44,7 +44,7 @@
       "pages": ["welcome/introduction", "welcome/getting-started", "welcome/concepts"]
     },
     {
-      "group": "How to improve your copilot",
+      "group": "Improve your copilot",
       "pages": ["improve/index", "improve/prompting", "improve/knowledge-base", "improve/dynamic-context", "improve/evaluation"]
     },
     {
