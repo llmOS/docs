@@ -1,44 +1,31 @@
 ---
 title: 'Quickstart'
-description: 'Get started quickly'
 ---
 
-### 1. Download the repo
+Here are the minimum steps to setup your own copilot
+
+### 1. Install requirements
 
 ```bash
-git clone git@github.com:opencopilotdev/opencopilot.git && cd opencopilot
+pip install opencopilot-ai
 ```
 
-### 2. Make sure you have the following dependancies:
+### 2. Create a minimal Copilot
 
-```md
-Python 3.8+
-Docker
-Docker Compose
-Conda (optional for development)
-pnpm (optional for front-end development)
+Into a Python file (for example, `copilot.py`), add:
+
+
+```python
+from opencopilot import OpenCopilot
+
+copilot = OpenCopilot()
+copilot()
 ```
 
-### 3. Install Python CLI:
+### 3. Run the Copilot
 
 ```bash
-pip install -e .
+python copilot.py
 ```
 
-### 4. Create a new Copilot:
-
-```bash
-opencopilot create
-```
-
-### 5. Start the Copilot:
-
-```bash
-opencopilot start
-```
-
-### 6. Copilot is running 🎉
-
-To chat from CLI, run `opencopilot chat <message>`.
-
-To chat from the front-end, visit this URL in your browser: [http://0.0.0.0:3001](http://0.0.0.0:3001)
+That's it! The copilot is now running! 🎉 You can now chat with it: TODO how? (CLI, frontend, etc)
