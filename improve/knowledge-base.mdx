@@ -4,9 +4,26 @@ title: "Knowledge base"
 
 The **knowledge base** is the set of documents that your copilot relies on when responding - you can think of it as the things you've taught it. The copilot has access to everything here when trying to answer your questions.
 
+### Prerequisites
+
+To use the knowledge base, you need to set up a Weaviate vector store (TODO this needs to be made much easier):
+
+```shell
+cd opencopilot && docker-compose -f docker-compose-weaviate.yml up -d
+```
+
+
 ### Adding files and folders to the knowledge base
 
-To add things into the knowledge base, TODO code example.
+To add new knowledge and your own data to the Copilot simply let the copilot know which files to load.
+
+```python
+# Loads the entire folder and subfolders
+copilot.add_local_files("mydata/")
+
+# Loads just one file
+copilot.add_local_file("mydata/article.pdf")
+```
 
 The following file formats are supported by default:
 
@@ -23,12 +40,34 @@ In some situations, our default file loaders may not be sufficient. For example:
 * Your files are large and you want to have control over how they are chunked.
 * Instead of the local filesystem, you want to load files from a remote location like Amazon S3, a URL, a database, etc.
 
-In these situations, you can write a custom document loader. A document loader is simply a function that returns a list of documents.
-
-For example, here's a minimal document loader that loads a single document from a URL:
+In these situations, you can write a custom document loader. A document loader is simply a function that returns a list of documents. To add a custom document loader, decorate it with `@copilot.data_loader`:
 
 ```python
+from typing import List
+from langchain.schema import Document
 
-TODO
+@copilot.data_loader
+def custom_dataloader() -> List[Document]:
+    pass # This is where you fetch and return your documents
+```
 
+For example, to retrieve one URL and load it into the knowledge base, this is what your `copilot.py` file would look like:
+
+```python
+import requests
+from typing import List
+from langchain.schema import Document
+from opencopilot import OpenCopilot
+
+copilot = OpenCopilot()
+
+copilot.add_prompt("myprompt.txt")
+
+@copilot.data_loader
+def custom_dataloader() -> List[Document]:
+    url = "https://www.example.com/article.html"
+    response = requests.get(url)
+    return [Document(page_content=response.text, metadata={"source": url})]
+
+copilot()
 ```
