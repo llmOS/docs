@@ -1,3 +1,22 @@
 ---
 title: "Dynamic context"
 ---
+
+It is possible to also skip the vector store completely or return additional documents for LLM to answer queries at query time. This has the benefit of always fetching the freshest data -- and it's possible to fetch user-specific context here too.
+
+The following function is called every time user chats with the Copilot and the documents can be user specific:
+
+```python
+from typing import List
+from langchain.schema import Document
+
+@copilot.search
+def custom_search(query: str, user_id: str) -> List[Document]:
+    # For example you can do a SQL query to get relevant information based 
+    # on the user query and user_id, like:
+    # return my_sql_db.search(query, user_id)
+    pass
+```
+
+`user_id` is the same parameter that is passed into the `/v0/conversation/{conversation_id}` endpoint of the [REST API](/integrate/rest-api).
+
