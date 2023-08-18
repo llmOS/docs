@@ -40,8 +40,8 @@
   ],
   "navigation": [
     {
-      "group": "Get Started",
-      "pages": ["quickstart", "development"]
+      "group": "Welcome",
+      "pages": ["introduction", "getting-started"]
     },
     {
       "group": "Improve Your Copilot",
