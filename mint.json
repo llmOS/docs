@@ -21,12 +21,22 @@
   "topbarLinks": [
   ],
   "topbarCtaButton": {
-    "name": "Github",
+    "type": "github",
     "url": "https://github.com/opencopilotdev/opencopilot"
   },
   "tabs": [
   ],
   "anchors": [
+    {
+      "name": "GitHub",
+      "icon": "github",
+      "url": "https://github.com/loopholelabs/frpc-go"
+    },
+    {
+      "name": "Twitter",
+      "icon": "twitter",
+      "url": "https://twitter.com/OpenCopilot"
+    }
   ],
   "navigation": [
     {
