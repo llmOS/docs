@@ -1,3 +1,38 @@
 ---
 title: "Knowledge base"
 ---
+
+The **knowledge base** is the set of documents that your copilot relies on when responding - you can think of it as the things you've taught it. The copilot has access to everything here when trying to answer your questions.
+
+### Prerequisites
+
+TODO - need to have weaviate running / enabled / integrated
+
+### Adding files and folders to the knowledge base
+
+To add things into the knowledge base, TODO code example.
+
+The following file formats are supported by default:
+
+* `pdf` files
+* `csv`, `tsv` and `xls`/`xlsx` (Excel) files
+* `txt` files
+* `json` files
+
+### Adding a custom document loader
+
+In some situations, our default file loaders may not be sufficient. For example:
+
+* You have a custom file format that you want to load into the knowledge base.
+* Your files are large and you want to have control over how they are chunked.
+* Instead of the local filesystem, you want to load files from a remote location like Amazon S3, a URL, a database, etc.
+
+In these situations, you can write a custom document loader. A document loader is simply a function that returns a list of documents.
+
+For example, here's a minimal document loader that loads a single document from a URL:
+
+```python
+
+TODO
+
+```
