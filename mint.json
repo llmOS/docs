@@ -41,7 +41,7 @@
   "navigation": [
     {
       "group": "Welcome",
-      "pages": ["welcome/introduction", "welcome/getting-started", "welcome/concepts"]
+      "pages": ["welcome/introduction", "welcome/getting-started", "welcome/overview"]
     },
     {
       "group": "Improve your copilot",
