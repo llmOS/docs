@@ -49,7 +49,7 @@
     },
     {
       "group": "Integrate your copilot",
-      "pages": ["integrate/rest-api", "integrate/deploy", "integrate/monitoring"]
+      "pages": ["integrate/configuration", "integrate/rest-api", "integrate/deploy", "integrate/monitoring"]
     }
   ],
   "footerSocials": {
