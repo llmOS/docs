@@ -4,6 +4,13 @@ title: "Dynamic context"
 
 It is possible to also skip the vector store completely or return additional documents for LLM to answer queries at query time. This has the benefit of always fetching the freshest data -- and it's possible to fetch user-specific context here too.
 
+For example, this would allow you to do the following:
+* Fetch user history from your SQL database.
+* Run an API call to get the user's current location from their IP, and inject into prompt.
+* Add current time into the prompt.
+
+...and much more!
+
 The following function is called every time user chats with the Copilot and the documents can be user specific:
 
 ```python
