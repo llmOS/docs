@@ -45,7 +45,7 @@
     },
     {
       "group": "Improve your copilot",
-      "pages": ["improve/index", "improve/prompting", "improve/knowledge-base", "improve/dynamic-context", "improve/evaluation"]
+      "pages": ["improve/customize-your-copilot", "improve/prompting", "improve/knowledge-base", "improve/dynamic-context", "improve/evaluation"]
     },
     {
       "group": "Integrate your copilot",
