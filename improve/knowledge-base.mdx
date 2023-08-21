@@ -85,3 +85,7 @@ copilot()
 ```
 
 To ingest new data, the copilot needs to be restarted by killing and re-running the Python app with `python copilot.py`.
+
+### Caching
+
+By default, every ingested document in the knowledge base is cached locally. The cache operates on the basis of the `Document`'s content (i.e. the `page_content` field): if the hash of the content is the same, the embedding is retrieved from the cache. Otherwise the document is re-embedded and the cache is updated.
