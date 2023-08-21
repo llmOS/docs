@@ -84,6 +84,28 @@ def custom_dataloader() -> List[Document]:
 copilot()
 ```
 
+You can also use any existing [Langchain document loader](https://python.langchain.com/docs/modules/data_connection/document_loaders/). For example, using the CSV loader and the Notion loader:
+
+```python
+from langchain.document_loaders.csv_loader import CSVLoader
+
+@copilot.data_loader
+def load_csv_data() -> List[Document]:
+    loader = CSVLoader(file_path='./example_data/mlb_teams_2012.csv')
+    documents = loader.load()
+    return documents
+
+
+from langchain.document_loaders import NotionDirectoryLoader
+
+@copilot.data_loader
+def load_notion_data() -> List[Document]:
+    dump_path = "./my_notion_dump"
+    loader = NotionDirectoryLoader(dump_path)
+    documents = loader.load()
+    return documents
+```
+
 To ingest new data, the copilot needs to be restarted by killing and re-running the Python app with `python copilot.py`.
 
 ### Caching
