@@ -1,12 +1,8 @@
-# Mintlify Starter Kit
+# OpenCopilot docs
 
-Click on `Use this template` to copy the Mintlify starter kit. The starter kit contains examples including
+This repository holds the MDX-formatted [OpenCopilot docs](https://docs.opencopilot.dev).
 
-- Guide pages
-- Navigation
-- Customizations
-- API Reference pages
-- Use of popular components
+The below sections are starter instructions from the Mintlify starter [template](https://github.com/mintlify/starter).
 
 ### 👩‍💻 Development
 
