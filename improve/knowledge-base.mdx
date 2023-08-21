@@ -59,6 +59,8 @@ def custom_dataloader() -> List[Document]:
     pass # This is where you fetch and return your documents
 ```
 
+Each document you return should be of the type [`langchain.schema.Document`](https://github.com/langchain-ai/langchain/blob/master/libs/langchain/langchain/schema/document.py). This is a simple dataclass that contains two fields: `page_content` is the content of the document as a string, which will be indexed for search and retrieved into the prompt at runtime. `metadata` is a dictionary of arbitrary metadata about the document, which will be stored in the knowledge base but not indexed for search; the most important keys in that dictionary are `source` and `title` which, when set, can appear in the copilot's responses.
+
 For example, to retrieve one URL and load it into the knowledge base, this is what your `copilot.py` file would look like:
 
 ```python
