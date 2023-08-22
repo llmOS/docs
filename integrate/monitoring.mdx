@@ -11,7 +11,11 @@ To do so, you need to:
 1. Add the key into the copilot by [setting](/integrate/settings) the `helicone_api_key` parameter when initializing copilot:
 
 ```python
-copilot = OpenCopilot(helicone_api_key="your-helicone-api-key", openai_api_key="your-openai-api-key")
+copilot = OpenCopilot(
+    helicone_api_key="your-helicone-api-key",
+    openai_api_key="your-openai-api-key",
+    ... # other arguments
+    )
 ```
 
 <img className="w-full" src="/images/helicone.png" alt="Helicone screenshot" />

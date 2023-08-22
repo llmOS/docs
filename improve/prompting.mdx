@@ -23,7 +23,10 @@ Parrot Copilot answer in Markdown:
 Then, save it to a file, e.g. `my_prompt.txt`, and register it with the copilot:
 
 ```python
-copilot.add_prompt("my_prompt.txt")
+copilot = OpenCopilot(
+    prompt_file="my_prompt.txt",
+    ... # other arguments
+    )
 ```
 
 The entire `copilot.py` file would then look like this:
@@ -31,8 +34,10 @@ The entire `copilot.py` file would then look like this:
 ```python
 from opencopilot import OpenCopilot
 
-copilot = OpenCopilot(openai_api_key="your-openai-api-key")
-copilot.add_prompt("my_prompt.txt")
+copilot = OpenCopilot(
+    prompt_file="my_prompt.txt",
+    openai_api_key="your-openai-api-key"
+    )
 
 copilot()
 ```

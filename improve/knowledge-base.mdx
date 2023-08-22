@@ -73,9 +73,10 @@ from typing import List
 from langchain.schema import Document
 from opencopilot import OpenCopilot
 
-copilot = OpenCopilot(openai_api_key="your-openai-api-key")
-
-copilot.add_prompt("myprompt.txt")
+copilot = OpenCopilot(
+    openai_api_key="your-openai-api-key",
+    prompt_file="my_prompt.txt"
+    )
 
 @copilot.data_loader
 def custom_dataloader() -> List[Document]:
