@@ -35,6 +35,8 @@ copilot.add_local_files_dir("mydata/")
 copilot.add_local_file("mydata/article.pdf")
 ```
 
+To ingest new data, the copilot needs to be restarted by killing and re-running the Python app with python copilot.py right under this so dev knows exactly what to do after that.
+
 The following file formats are supported by default:
 
 * `pdf` files
@@ -105,8 +107,6 @@ def load_notion_data() -> List[Document]:
     documents = loader.load()
     return documents
 ```
-
-To ingest new data, the copilot needs to be restarted by killing and re-running the Python app with `python copilot.py`.
 
 ### Caching
 
