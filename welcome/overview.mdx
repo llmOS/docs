@@ -2,13 +2,18 @@
 title: 'Overview'
 ---
 
+### Key features
 
+Here's what OpenCopilot comes with out of the box:
 
-* what is opencopilot
-* key features
-* use cases
-* parts of the stack (backend, front template, your app, LLM, embedding model, etc)
-* can use any LLM: GPT-4 by default, but easy to switch to any other LLM including OSS LLM
+* Intuitive way to [define copilots in Python code](/welcome/getting-started)
+* Support for adding [knowledge bases](/improve/knowledge-base) to your copilot ("chat with your data" style)
+    * Use custom data sources, or any Langchain-compatible document loader
+* [REST API](/integrate/rest-api), including streaming support
+* [Monitoring](/integrate/monitoring) for your LLM & copilot usage
+* [Front-end](https://github.com/opencopilotdev/opencopilot-frontend) template
+* Use any LLM (`gpt-3.5-turbo-16k` by default)
+* Coming soon: dynamic context, evaluation, and more
 
 
 ### Use cases
@@ -36,3 +41,10 @@ title: 'Overview'
   </Accordion>
 </AccordionGroup>
 
+
+### Design principles
+
+OpenCopilot is designed with the following principles in mind:
+
+* **Explicit is better than implicit**: copilot behaviour should be defined explicitly, not hidden behind layers of abstractions and defaults.
+* **Declarative Python**: instead of having tens of configuration files, a copilot should be defined in simple, readable, declarative Python.
