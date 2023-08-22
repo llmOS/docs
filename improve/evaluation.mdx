@@ -2,4 +2,56 @@
 title: "Evaluation"
 ---
 
-We're planning to add evaluation into the default workflow of OpenCopilot soon. In the meantime, please [get in touch](http://localhost:3002/welcome/introduction#getting-help) if you'd like our recommendations on how to evaluate your copilot automatically.
+We're planning to add evaluation into the default workflow of OpenCopilot soon. In the meantime, here's a basic outline of how to evaluate your copilot.
+
+## Types of evaluation
+
+There are two major components of copilots: **retrieval** and **generation**. You can evaluate either one of those in isolation, or the copilot as a whole.
+
+In our experience, evaluating generation on its own is not very valuable. Rather, it makes sense to evaluate either retrieval, or the copilot as a whole. This is because the quality of generation is highly dependent on the quality of retrieval.
+
+Here, we'll focus on how to evaluate retrieval as this is usually the highest-leverage place to improve how your copilot answers.
+
+### Retrieval
+
+**Retrieval** is the process of fetching the right documents for inserting into the LLM context. It's akin to search: given a set of documents in your [knowledge base](/improve/knowledge-base), the copilot needs to identify the top N documents that are relevant to the current question (where N is usually between 1 and 20, often around 3).
+
+On any user request, the copilot retrieves N documents. Some of those are relevant to the query and some are not.
+
+A straightforward way to evaluate retrieval is via precision and recall. **Precision** indicates what % of the retrieved documents were indeed relevant. **Recall** indicates what % of relevant documents were retrieved.
+
+To evaluate retrieval, you need to have a set of examples. Each example should consist of a question and a set of documents that are relevant to that question.
+
+You can then run the copilot on each example query. Compare the sources used by the copilot against the ideal list of relevant documents in the test example. From this you can calculate the average precision and recall across the set of examples. This will be your final evaluation of the retrieval system.
+
+Concretely, here's what your list of examples could look like:
+
+```json
+{
+  "examples": [
+    {
+      "query": "How Can I integrate Ready Player Me Unity SDK?",
+      "documents": [
+        "https://docs.readyplayer.me/ready-player-me/integration-guides/unity/quickstart"
+      ]
+    },
+    {
+      "query": "How can I import the Ready Player Me Unity SDK?",
+      "documents": [
+        "https://docs.readyplayer.me/ready-player-me/integration-guides/unity/quickstart"
+      ]
+    },
+    {
+      "query": "How can I enter my subdomain in Unity?",
+      "documents": [
+        "https://docs.readyplayer.me/ready-player-me/integration-guides/unity/quickstart"
+      ]
+    }
+  ]
+}
+```
+
+## Help
+
+Please [get in touch](/welcome/introduction#getting-help) if you'd like to discuss how to evaluate your copilot automatically, or have any issues with the process above!
+
