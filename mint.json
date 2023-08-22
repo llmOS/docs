@@ -7,7 +7,8 @@
   },
   "favicon": "/favicon.png",
   "metadata": {
-    "og:image": "/images/opencopilot_social.png",
+    "og:image": "https://opencopilot.dev/images/image.png",
+    "twitter:image": "https://opencopilot.dev/images/image.png",
     "og:description": "Build and embed open-source AI Copilots into your product with ease."
   },
   "colors": {
