@@ -6,6 +6,10 @@
     "light": "/logo/light.svg"
   },
   "favicon": "/favicon.png",
+  "metadata": {
+    "og:image": "/images/opencopilot_social.png",
+    "og:description": "Build and embed open-source AI Copilots into your product with ease."
+  },
   "colors": {
     "primary": "#7985ff",
     "light": "#7985ff",
