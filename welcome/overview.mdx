@@ -8,7 +8,7 @@ Here's what OpenCopilot comes with out of the box:
 
 * Intuitive way to [define copilots in Python code](/welcome/getting-started)
 * Support for adding [knowledge bases](/improve/knowledge-base) to your copilot ("chat with your data" style)
-    * Use custom data sources, or any Langchain-compatible document loader
+    * Use custom data sources, or any LangChain-compatible document loader
 * [REST API](/integrate/rest-api), including streaming support
 * [Monitoring](/integrate/monitoring) for your LLM & copilot usage
 * [Front-end](https://github.com/opencopilotdev/opencopilot-frontend) template
@@ -18,33 +18,18 @@ Here's what OpenCopilot comes with out of the box:
 
 ### Use cases
 
-<AccordionGroup cols={1}>
-  <Accordion
-    title="Customer onboarding"
-    icon="filter">
-    Using OpenCopilot, Ready Player Me built a copilot that helps onboard new customers onto their developer platform. In addition to answering questions about the technical integration and making code snippets, the copilot helps the developer understand core concepts of the platform, licensing concerns, third-party integrations, and more. Click [here](TODO) to see the template and copilot in action.
-  </Accordion>
-  <Accordion
-    title="Sales strategy and outreach"
-    icon="handshake">
-    In order to do more effective sales outreach, an executive built a copilot that helped not only write emails, but also be thoughtful about who and why to outreach to. The copilot helps with choosing a target group, identifying potential ways to reach out, and helps review personalized emails. Click [here](TODO) to grab the template and make it yours.
-  </Accordion>
-  <Accordion
-    title="Domain expert"
-    icon="chalkboard-user">
-    There's a lot of explicit and implicit knowledge that makes up an expert's ability to answer questions. A copilot can do a lot of this -- and we built one to prove this. The LLM copilot helps engineers through the uncertainties of building an LLM-based application. Click [here](https://copilot.opencopilot.dev/) to see the LLM copilot live, or get the source code on [Github](https://github.com/opencopilotdev/opencopilot/tree/main/copilots/llm).
-  </Accordion>
-  <Accordion
-    title="Founder's right hand"
-    icon="chess-king">
-    TODO description
-  </Accordion>
-</AccordionGroup>
+What can you do with copilots? Here are some examples:
+
+1.  **Developer tooling Copilot**: [Ready Player Me](https://readyplayerdev.me/), the leading avatar tooling platform, built a CTO Copilot that helps their users integrate avatar SDK to games. In addition to providing code snippets, the copilot helps developers understand the product, integration errors, licensing concerns, third-party integrations, and much more. Click [here](https://rpm.opencopilot.dev/) to see copilot in action. Impact for Ready Player Me: **increased developer retention and happiness.**
+2.  **SaaS Copilot**: [ChatSpot](https://chatspot.ai/), a Copilot by HubSpot enables their users to close deals faster, streamline RevOps and enable sales people to focus only on what matters by automating the tedious tasks. Most SaaS products are either overly complex and users don't get enough value of it. SaaS Copilots enable a human-like UX which drive their adoption.
+3.  **E-commerce Copilot**: [Shopify](https://www.shopify.com/magic) Copilot is designed for store owners to grow revenue and simplify commerce. Essentially, a Copilot that enables to become a better entrepreneur on the Internet.
+4.  **Company internal Copilot**: Companies spend enormous amount of money and time on building internal tools. Copilots can reduce that as it consolidates many SaaS products into one and can drive efficiency and cost savings across the company. For example, many startups pay hefty legal bills to their lawyers. At OpenCopilot we built an internal Legal Copilot which has reduced our legal spend by 50%. We've seen impactful Copilots built in the areas of HR, finance, operations, etc.
+5.  **Individual/Creator Copilot**: ChatGPT is extremely powerful but held back because it's too generic and not personal enough. All of the founders at OpenCopilot have built a Founder Copilot which is personal and enables us with strategic decision making, executing at a high clip, etc. Also, creators can create their own Copilots which helps scale their time with their community.
 
 
 ### Design principles
 
 OpenCopilot is designed with the following principles in mind:
 
-* **Explicit is better than implicit**: copilot behaviour should be defined explicitly, not hidden behind layers of abstractions and defaults.
+* **Explicit is better than implicit**: copilot behavior should be defined explicitly, not hidden behind layers of abstractions and defaults.
 * **Declarative Python**: instead of having tens of configuration files, a copilot should be defined in simple, readable, declarative Python.
