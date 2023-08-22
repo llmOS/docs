@@ -56,5 +56,11 @@
     "github": "https://github.com/opencopilotdev/opencopilot",
     "twitter": "https://twitter.com/OpenCopilot",
     "discord": "https://discord.gg/AmdF5d94vE"
-  }
+  },
+  "analytics": {
+    "hotjar": {
+        "hjid": "3622880",
+        "hjsv": "6"
+    }
+}
 }
