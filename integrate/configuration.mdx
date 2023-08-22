@@ -2,14 +2,15 @@
 title: 'Configuration'
 ---
 
-There are many things you can optionally configure in OpenCopilot:
+There are many things you can optionally configure in OpenCopilot. To change those, pass in the relevant argument to the `OpenCopilot()` initializer.
 
-* which LLM to use (GPT-3.5, GPT-4, an open-source LLM, etc)
-* API keys
-* logging paths
-* database URLs (for [Knowledge base](improve/knowledge-base.md))
-* authentication
+* `openai_api_key`: OpenAI API key. Used for making LLM and embedding calls.
 
-...and much more!
+* `helicone_api_key`: [Helicone](https://www.helicone.ai/) API key. Used for [Monitoring](/integrate/monitoring).  
+* `llm_model_name`: Which LLM to use. Defaults to `gpt-3.5-turbo-16k`.
+* `log_file_path`: Path to the log file.
+* `weaviate_url`: URL of the Weaviate instance to use for the [Knowledge base](improve/knowledge-base.md).
+* `jwt_client_id` and `jwt_client_secret`: If you'd like to enable JWT authentication, you can pass in the client ID and secret here.
 
-To see the full up-to-date list, see the `OpenCopilot` class initializer and method implementations on the [OpenCopilot Github](https://github.com/opencopilotdev/opencopilot/blob/main/opencopilot/application.py).
+
+To see the full and up-to-date list, see the `OpenCopilot` class initializer and method implementations on the [OpenCopilot Github](https://github.com/opencopilotdev/opencopilot/blob/main/opencopilot/application.py).
