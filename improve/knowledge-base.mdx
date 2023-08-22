@@ -100,7 +100,7 @@ from langchain.document_loaders import NotionDirectoryLoader
 
 @copilot.data_loader
 def load_notion_data() -> List[Document]:
-    dump_path = "./my_notion_dump"
+    dump_path = "./my_notion_dump/"
     loader = NotionDirectoryLoader(dump_path)
     documents = loader.load()
     return documents
