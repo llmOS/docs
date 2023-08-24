@@ -55,7 +55,28 @@
     {
       "group": "Integrate your copilot",
       "pages": ["integrate/configuration", "integrate/rest-api", "integrate/deploy", "integrate/monitoring"]
-    }
+    },
+    {
+      "group": "Chat",
+      "pages": [
+        "rest-api/endpoints/chat/list-conversations",
+        "rest-api/endpoints/chat/retrieve-a-conversation-including-all-message-history-within",
+        "rest-api/endpoints/chat/send-a-message-to-the-copilot",
+        "rest-api/endpoints/chat/send-a-message-to-the-copilot-and-get-the-response-as-a-stream"
+      ]
+    },
+    {
+      "group": "Debug",
+      "pages": [
+        "rest-api/endpoints/debug/get-detailed-debug-information-about-a-message"
+      ]
+    },
+    {
+      "group": "Authorization",
+      "pages": [
+        "rest-api/endpoints/authorization/generate-a-json-web-token"
+      ]
+    }  
   ],
   "footerSocials": {
     "github": "https://github.com/opencopilotdev/opencopilot",
