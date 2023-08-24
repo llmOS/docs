@@ -4,4 +4,29 @@ title: 'Deployment'
 
 Deploying your copilot is similar to deploying any Python application. There are many options, from deploying to a bare metal server, to using a container orchestration service, etc.
 
+We have provided an example docker setup to deploy the whole stack.
+
+### Setup
+
+Clone the repository:
+
+```shell
+git clone https://github.com/opencopilotdev/opencopilot.git
+cd examples/production
+```
+
+Run the whole stack:
+
+```shell
+export OPENAI_API_KEY="FILL_IN"
+docker-compose up --build
+```
+
+### Explanation
+
+* Copilot is packaged in Docker container. See more in `docker/copilot`
+* Nginx is in front of the python Rest API. See more in `docker/nginx`
+* Weaviate vector store is running in separate docker container to support storing data
+* Frontend is running in separate docker container
+
 If you need further advice deploying your copilot, please [reach out](/welcome/introduction#getting-help) to us and we'll be happy to help.
