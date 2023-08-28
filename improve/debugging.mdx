@@ -6,7 +6,48 @@ You almost never get your copilot right on the first try, so you'll need to debu
 
 There can be many reasons, but the most common is that the LLM does not see the relevant document from the [knowledge base](/improve/knowledge-base), and so does not have enough context to produce a good response. This usually happens because the document is indexed in the knowledge base, but the copilot does not retrieve it -- most likely because the user query wasn't a close enough match to the document in the embedding space.
 
-To debug this and other issues, you can use the debug view.
+To debug this and other issues, you can use either the CLI, or the debug view.
+
+### Debugging with the CLI
+
+Introduced in the [v0.3.3](https://github.com/opencopilotdev/opencopilot/releases/tag/v0.3.3) release, the CLI includes a helpful `retrieve` command that lets you debug the [knowledge base](/improve/knowledge-base) from various angles.
+
+Once you've installed the latest version of the Python package, you can run `opencopilot retrieve` to see a help message similar to this:
+
+```bash
+                                                                            
+ Usage: opencopilot retrieve [OPTIONS]                                      
+                                                                            
+ Query the retrieval pipeline.                                              
+                                                                            
+╭─ Options ────────────────────────────────────────────────────────────────╮
+│ --text    -t      TEXT  Your question, i.e. "How to improve retrieval?"  │
+│                         [default: None]                                  │
+│ --source  -s      TEXT  Source to match - supports wildcards             │
+│                         [default: None]                                  │
+│ --all     -a            Gets all documents ingested                      │
+│ --help                  Show this message and exit.                      │
+╰──────────────────────────────────────────────────────────────────────────╯
+```
+
+For example, to retrieve all documents that have been inserted into the knowledge base:
+```bash
+opencopilot retrieve --all
+```
+
+To understand what documents are returned if the user queries "bmw case study":
+```bash
+opencopilot retrieve --text "bmw case study"
+```
+
+To see a list of all documents coming from a particular source (with wildcards):
+```bash
+opencopilot retrieve --source "*news.ycombinator.com*"
+```
+
+You can also combine these options.
+
+### Debugging with debug view
 
 First, you need to enable the debug view by running the [front-end application](/welcome/getting-started#optional-front-end) with the right flag. In the front-end directory, edit the `.env` file to set the following flag:
 
