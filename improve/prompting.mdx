@@ -48,7 +48,7 @@ Re-run the copilot with `python copilot.py` and it will now use the prompt from 
 
 The prompt is not a static piece of text. It is a template that will be filled at runtime, after the user has messaged the copilot but before sending the request to the LLM. For this reason, you should always place three template variables into the prompt file (ideally at the end), and they will be substituted as follows:
 
-* `{context}`: the most relevant documents retrieved from your [knowledge base](#knowledge-base).
+* `{context}`: the most relevant documents retrieved from your [knowledge base](/improve/knowledge-base).
 * `{history}`: the conversation history between the user and the copilot.
 * `{question}`: the most recent input from the user -- the message they just sent.
 
@@ -56,4 +56,4 @@ The prompt is not a static piece of text. It is a template that will be filled a
 
 ### Writing a good system prompt
 
-There aren't many hard rules to prompting; you can start from one of our provided [copilots](https://github.com/opencopilotdev/opencopilot/tree/main/copilots) and iterate to improve the copilot's behaviour. Prompt engineering is a deep topic; for a more in-depth overview, see [OpenAI's list of prompting guides](https://github.com/openai/openai-cookbook#prompting-guides). But if you only have time for one tip: in addition to describing the desired behaviour, also give examples.
+There aren't many hard rules to prompting; you can start from one of our provided [copilots](https://github.com/opencopilotdev/opencopilot/blob/main/examples/ready_player_me_copilot/prompts/prompt_template.txt) and iterate to improve the copilot's behaviour. Prompt engineering is a deep topic; for a more in-depth overview, see [OpenAI's list of prompting guides](https://github.com/openai/openai-cookbook#prompting-guides). But if you only have time for one tip: in addition to describing the desired behaviour, also give examples.
