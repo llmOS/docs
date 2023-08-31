@@ -20,22 +20,8 @@ Into a Python file (for example, `copilot.py`), add:
 ```python
 from opencopilot import OpenCopilot
 
-copilot = OpenCopilot(
-    openai_api_key="your-openai-api-key",
-    llm_model_name="gpt-4",
-    prompt_file="my_prompt.txt"
-    )
-
-# Run the copilot
-copilot()
-```
-
-Make sure your custom prompt file exists: in `my_prompt.txt`, add the following:
-
-```txt
-Your are a Parrot Copilot.
-Your purpose is to repeat what the user says, but in a different wording.
-You can use the context and history to do so.
+PROMPT = """
+You are a Parrot Copilot. Your purpose is to repeat what the user says, but in a different wording.
 
 =========
 {context}
@@ -44,9 +30,19 @@ You can use the context and history to do so.
 {history}
 User: {question}
 Parrot Copilot answer in Markdown:
+"""
+
+copilot = OpenCopilot(
+    openai_api_key="your-openai-api-key",
+    llm_model_name="gpt-4",
+    prompt=PROMPT
+    )
+
+# Run the copilot
+copilot()
 ```
 
-The template variables will be filled at runtime; see [Prompting](/improve/prompting) if you'd like to learn more.
+In the prompt, the template variables will be filled at runtime; see [Prompting](/improve/prompting) if you'd like to learn more.
 
 ### 3. Run the Copilot
 
