@@ -1,0 +1,83 @@
+---
+title: "Working with Open Source Large Language Models"
+---
+
+OpenCopilot CLI includes a helpful `oss_model` command that help you choose, setup and run an Open Source LLM locally.
+
+### Choosing an LLM
+
+To see a list of all the models available:
+```bash
+# opencopilot oss_model list
+    NAME                      	SIZE  
+ *  llama2-7b-chat              3.8 GB
+    openorca-platypus2-13b.    	7.3 GB
+
+* Recommended for your system
+
+```
+Models marked with an asterisk are recommended ones based on your system performance (RAM, GPU,...)
+
+### LLM model details
+
+To see model details:
+```bash
+# opencopilot oss_model info llama2-7b-chat
+Model Name: llama2-7b-chat
+Size: 3.8 GB
+Description: An advanced language model ideal for chat applications.
+Requirements: 8 GB RAM, 2 GB GPU VRAM.
+```
+
+### Using an LLM
+
+To use a certain LLM:
+```bash
+# opencopilot oss_model run llama2-7b-chat
+Downloading llama2-7b-chat...
+Starting up...
+LLM started, please check that your Copilot matches contains these settings:
+     ...
+     llm_url="http:/127.0.0.1:3030"
+     ...
+```
+
+The a simple `copilot.py` file would then look like this:
+
+```python
+from opencopilot import OpenCopilot
+
+copilot = OpenCopilot(
+    prompt_file="my_prompt.txt",
+    llm_url="http:/127.0.0.1:3030"
+    )
+
+copilot()
+```
+
+### Generating a Model-Specific Prompt Template
+
+Different language models might have different strengths, specializations, or recommended use-cases. 
+To generate a prompt template tailored to a specific model, you can use the generate_prompt command followed by the model's name:
+
+```bash
+# opencopilot oss_model prompt llama2-7b-chat
+<<SYS>>
+You are a Parrot Copilot. Your purpose is to repeat what the user says, but in a different wording.
+Context: {context}
+<</SYS>>
+
+{ history }
+[INST]
+{question}
+[/INST]
+```
+
+### Removing an LLM
+
+Allows users to remove a model if they no longer need it to save space:
+```bash
+# opencopilot oss_model remove llama2-7b-chat
+Removing llama2-7b-chat...
+LLM removed successfully.
+```
