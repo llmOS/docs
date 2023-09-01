@@ -4,18 +4,18 @@ title: 'Quickstart'
 
 Want to setup your own copilot? Great! Here are the minimum steps to do that.
 
-As a prerequisite, you need to have **Python 3.8+** and **pip** installed.
+As prerequisites, you need to have **Python 3.8+** and **pip** installed.
 
-### 1. Install the Python package
+### 1. Install the OpenCopilot Python package
 
 ```bash
 pip install opencopilot-ai
 ```
 
-### 2. Create a minimal Copilot
+### 2. Create a new python file to set up a minimal Copilot
+For example, `copilot.py`, where you add the code from below. Also, add your own `openai_api_key`, which you can get [from here](https://platform.openai.com/account/api-keys).
 
-Into a Python file (for example, `copilot.py`), add:
-
+If you have access to GPT-4, we recommend changing `llm_model_name` to `gpt-4`.
 
 ```python
 from opencopilot import OpenCopilot
@@ -34,7 +34,7 @@ Parrot Copilot answer in Markdown:
 
 copilot = OpenCopilot(
     openai_api_key="your-openai-api-key",
-    llm_model_name="gpt-4",
+    llm_model_name="gpt-3.5-turbo-16k",
     prompt=PROMPT
     )
 
@@ -42,25 +42,21 @@ copilot = OpenCopilot(
 copilot()
 ```
 
-In the prompt, the template variables will be filled at runtime; see [Prompting](/improve/prompting) if you'd like to learn more.
-
 ### 3. Run the Copilot
 
 ```bash
 python copilot.py
 ```
 
-That's it! The copilot is now running as an API service, at `localhost:3000` by default!
-
-🎉 You can quickly test and chat with it by using commandline:
+### 4. Chat with the Copilot
+You can chat with your copilot in the UI at [localhost:3000/ui](http://localhost:3000/ui) or using the CLI:
 
 ```bash
 opencopilot chat "Hello, who are you?"
 ```
-
 See the [interactive Swagger docs](http://localhost:3000/docs#/Chat/handle_conversation_v0_conversation__conversation_id__post) for full API documentation.
 
-What next?
+### What next?
 
 * **Start improving the copilot**: [customize your copilot](/improve/customize-your-copilot) by prompting, adding context, etc.
 * Read more about the core features and stack choices of OpenCopilot in [Overview](/welcome/overview).
