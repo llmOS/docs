@@ -41,6 +41,18 @@ The following file formats are supported by default:
 * `txt` files
 * `json` files
 
+It is also possible to add data directly from URLs.
+
+```python
+# Scrapes the contents of the URL(s)
+copilot.add_data_urls(
+    [
+        "https://en.wikipedia.org/wiki/Estonian_identity_card",
+    ]
+)
+```
+This is most useful for quick validation, for better data quality look into custom scraping solutions or custom document loaders below.
+
 ### Adding a custom document loader
 
 In some situations, our default file loaders may not be sufficient. For example:
