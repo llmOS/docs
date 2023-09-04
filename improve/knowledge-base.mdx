@@ -53,7 +53,7 @@ copilot.add_data_urls(
 ```
 This is most useful for quick validation, for better data quality look into custom scraping solutions or custom document loaders below.
 
-The URL loader supports HTML (without rendering Javascript) and PDF files.
+The URL loader supports any file type mentioned above and falls back to html (without Javascript) if it cannot detect the file type.
 
 ### Adding a custom document loader
 
