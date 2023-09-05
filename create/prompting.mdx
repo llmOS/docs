@@ -14,12 +14,23 @@ You can make it follow specific rules on how you would like it to respond to the
 Don't worry about getting this perfect on your first try - improving it is an iterative process.
 Here's a simple example:
 
-## 1. Write a system prompt:
+## Things to consider:
+1. Every LLM has a unique prompting technique (e.g. GPT-4 vs Llama-13B)
+2. At first, it is easier to start editing an example or template to match your use case
+3. Start off generic and iterate to narrow it more down to your use case
+4. It takes multiple iterations to get to a preferred system prompt
+5. More text != better -> overloading the LLM with prompts does not improve it's performance
+
+## Writing a system prompt:
+
+Following is a very simple system prompt for an E-Commerce Copilot (suits well GPT-3.5 & 4). Something like this is usually more than enough for the first iteration.
+You can see it describing:
+* who does the copilot portray itself as
+* what is the copilot supposed to do
 
 ```text
-Your are a Parrot Copilot.
-Your purpose is to repeat what the user says, but in a different wording.
-You can use the context and history to do so.
+You are an E-Commerce Copilot, an AI assistant for entrepeneurs selling products on their online shops.
+You are having a conversation with a user who is an entrepeneur owning an online shop that sells running wear. 
 
 =========
 {context}
@@ -27,14 +38,38 @@ You can use the context and history to do so.
 
 {history}
 User: {question}
-Parrot Copilot answer in Markdown:
+E-Commerce Copilot answer in Markdown:
 ```
-To get you inspired, you can find some use cases [here](/welcome/overview#use-cases) and see example prompt files in our [examples folder](https://github.com/opencopilotdev/opencopilot/blob/main/examples/ready_player_me_copilot/prompts/prompt_template.txt).
+
+Going through a few iterations it can be narrowed down to act more specifically for your use case. Adding for example:
+* what is it's mission
+* restrictions on what not to do
+* what it can use to reply to the user
+* how to act in case of... with concrete examples
+
+```text
+You are an E-Commerce Copilot, an AI assistant for entrepeneurs selling products on their online shops.
+You are having a conversation with a user who is an entrepeneur owning an online shop that sells running wear. 
+Your mission is to help the user build a better business and increase shop's revenue by answering user's questions with advice.
+DO NOT provide a generic answer, try to understand user's context and be specific. 
+You are given the context to answer each question below.
+If the question is too generic, for example "How to make money?" ask user to be more specific to his or her shop.
+
+=========
+{context}
+=========
+
+{history}
+User: {question}
+E-Commerce Copilot answer in Markdown:
+```
+Creating a production-ready system prompt is like fine tuning a model. Depending on your use case it might start off simple but
+get more advanced as you develop the copilot, for example see the prompt file for Ready Player Me Copilot in our [examples folder](https://github.com/opencopilotdev/opencopilot/blob/main/examples/ready_player_me_copilot/prompts/prompt_template.txt).
 
 ### Prompt file structure
 
 The prompt is not a static piece of text. It is a template that is dynamically **filled at runtime**.
-This way the copilot is aware of information unique to the interaction, hence you should always place three template variables into the prompt file (ideally at the end),
+This way the copilot is aware of real-time information unique to the interaction, hence you should always place three template variables into the prompt file (ideally at the end),
 and they will be substituted as follows:
 
 * `{context}`: the most relevant documents retrieved from your [knowledge base](/create/knowledge-base) (more on this later).
@@ -43,20 +78,51 @@ and they will be substituted as follows:
 
 **Do not remove or add any variables in prompts, variables that are in curly braces \{\}. (For example: \{context\})**
 
-## 2. Register it with the copilot:
+### Improving your system prompt
 
-If you followed Quickstart in our Readme, then you need to replace this with 
+There aren't many hard rules to prompting; you can start from one of our provided [copilots](https://github.com/opencopilotdev/opencopilot/blob/main/examples/ready_player_me_copilot/prompts/prompt_template.txt) and iterate to improve the copilot's behaviour.
+ Prompt engineering is a deep topic; for a more in-depth overview, see [OpenAI's list of prompting guides](https://github.com/openai/openai-cookbook#prompting-guides). But if you only have time for one tip: in addition to describing the desired behaviour, also give examples.
 
+## Using a system prompt:
+
+A system prompt can be used as a `String` in the copilot python file or imported as `.txt` file.
+
+### Using system prompt as a String:
+```python
+from opencopilot import OpenCopilot
+
+PROMPT = """
+You are a Parrot Copilot. Your purpose is to repeat what the user says, but in a different wording.
+
+=========
+{context}
+=========
+
+{history}
+User: {question}
+Parrot Copilot answer in Markdown:
+"""
+
+copilot = OpenCopilot(
+    openai_api_key="your-openai-api-key",
+    llm_model_name="gpt-3.5-turbo-16k",
+    prompt=PROMPT
+    )
+
+copilot()
+```
+
+### Using system prompt from a text file:
+
+Simply create a `.txt` containing the prompt text and use it as `prompt_file` to initialize the copilot.
+Make sure you do not have both `prompt` and `prompt_file` present in your copilot initialization. 
+It would look like somthing this:
 ```python
 copilot = OpenCopilot(
-    prompt_file="my_prompt.txt",
-    ... # other arguments
+    openai_api_key="your-openai-api-key",
+    llm_model_name="gpt-3.5-turbo-16k",
+    prompt_file="my_prompt.txt"
     )
 ```
 
-Re-run the copilot with `python copilot.py` and it will now use the prompt from `my_prompt.txt` instead of the default.
-
-
-### Writing a good system prompt
-
-There aren't many hard rules to prompting; you can start from one of our provided [copilots](https://github.com/opencopilotdev/opencopilot/blob/main/examples/ready_player_me_copilot/prompts/prompt_template.txt) and iterate to improve the copilot's behaviour. Prompt engineering is a deep topic; for a more in-depth overview, see [OpenAI's list of prompting guides](https://github.com/openai/openai-cookbook#prompting-guides). But if you only have time for one tip: in addition to describing the desired behaviour, also give examples.
+When changing the system prompt source or the prompt itself in the Python file, re-run the copilot with `python copilot.py`.
