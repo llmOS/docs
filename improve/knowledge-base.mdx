@@ -51,10 +51,9 @@ copilot.add_data_urls(
     ]
 )
 ```
-This is most useful for quick validation, for better data quality look into custom scraping solutions or custom document loaders below.
+This scrapes the URL on a best-effort basis, trying to guess which parts are relevant page contents (and removing irrelevant HTML). For best data quality and stable loading, we recommend you customize the scraping by using a `data_loader` (see below).
 
-The URL loader supports any file type mentioned above and falls back to html (without Javascript) if it cannot detect the file type.
-To load a file other than HTML the url needs to point directly to the file.
+You can add URLs that point to any supported file type (see above). If file type cannot be detected, the URL is parsed as HTML (without any Javascript execution). To load a file other than HTML the url needs to point directly to the file.
 
 ### Adding a custom document loader
 
