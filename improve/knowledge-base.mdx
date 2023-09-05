@@ -6,7 +6,7 @@ The **knowledge base** is the set of documents that your copilot relies on when 
 
 ### Prerequisites
 
-To use the knowledge base, you need to set up a Weaviate vector store.
+If you are using Windows, then you will need to set up Weaviate vector store.
 
 Make sure you have [Docker installed](https://docs.docker.com/engine/install/) and then run:
 
@@ -20,6 +20,14 @@ docker run \
   -p 8080:8080 \
   semitechnologies/weaviate:1.19.6 \
     --host 0.0.0.0 --port '8080' --scheme http
+```
+
+Then pass the weaviate url to the OpenCopilot constructor
+```python
+copilot = OpenCopilot(
+    ...
+    weaviate_url="http://localhost:8080/"
+)
 ```
 
 
