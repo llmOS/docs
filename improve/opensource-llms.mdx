@@ -2,18 +2,27 @@
 title: "[in development] Working with Open Source Large Language Models"
 ---
 
-OpenCopilot CLI includes a helpful `oss_model` command that help you choose, setup and run an Open Source LLM locally.
+OpenCopilot CLI includes a helpful `oss` command that help you choose, setup and run an Open Source LLM locally.
 
 ### Choosing an LLM
 
 To see a list of all the models available:
 ```bash
-# opencopilot oss_model list
-    NAME                      	SIZE  
- *  llama2-7b-chat              3.8 GB
-    openorca-platypus2-13b.    	7.3 GB
+# opencopilot oss list
+┏━━━┳━━━━━━━━━━━━━━━━━━┳━━━━━━━━┳━━━━━━━━━━━┓
+┃   ┃ NAME             ┃ SIZE   ┃ INSTALLED ┃
+┡━━━╇━━━━━━━━━━━━━━━━━━╇━━━━━━━━╇━━━━━━━━━━━┩
+│ * │ Llama-2-7b-chat  │ 3.83GB │ Yes       │
+│ * │ Llama-2-13b-chat │ 7.37GB │ Yes       │
+│   │ Llama-2-70b-chat │ 38.9GB │ No        │
+│ * │ CodeLlama-7b     │ 3.83GB │ No        │
+│ * │ CodeLlama-13b    │ 7.37GB │ No        │
+│   │ CodeLlama-34b    │ 19.1GB │ No        │
+└───┴──────────────────┴────────┴───────────┘
 
 * Recommended for your system
+
+To see more details about a model: opencopilot oss info <model_name>
 
 ```
 Models marked with an asterisk are recommended ones based on your system performance (RAM, GPU,...)
@@ -22,34 +31,45 @@ Models marked with an asterisk are recommended ones based on your system perform
 
 To see model details:
 ```bash
-# opencopilot oss_model info llama2-7b-chat
-Model Name: llama2-7b-chat
-Size: 3.8 GB
-Description: An advanced language model ideal for chat applications.
-Requirements: 8 GB RAM, 2 GB GPU VRAM.
+# opencopilot oss info llama-2-13b-chat
+Model Name:   Llama-2-13b-chat                                                                                                                                                                                                                                                                                
+ Size:         7.37 GB                                                                                                                                                                                                                                                                                         
+ Description:  Meta developed and publicly released the Llama 2 family of large language models (LLMs), a collection of pretrained and fine-tuned generative text models ranging in scale from 7 billion to 70 billion parameters. Fine-tuned LLMs, called Llama-2-Chat, are optimized for dialogue use cases. 
 ```
 
-### Using an LLM
+### Running an LLM
 
 To use a certain LLM:
 ```bash
-# opencopilot oss_model run llama2-7b-chat
-Downloading llama2-7b-chat...
-Starting up...
-LLM started, please check that your Copilot matches contains these settings:
-     ...
-     llm_url="http:/127.0.0.1:3030"
-     ...
+# opencopilot oss run llama-2-13b-chat
+Downloading Llama-2-13b-chat...
+100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 7.37G/7.37G [00:00<00:00, 33.6kB/s]
+Loading Llama-2-13b-chat, please wait...
+INFO:     Started server process [62436]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://localhost:8000 (Press CTRL+C to quit)
 ```
 
-The a simple `copilot.py` file would then look like this:
+Then a simple `copilot.py` file would then look like this:
 
 ```python
 from opencopilot import OpenCopilot
+from opencopilot.domain.chat.models import LocalLLm
+from langchain.embeddings import HuggingFaceEmbeddings
+
+llm = LocalLLM(
+    temperature=0.0,
+    llm_url="http://127.0.0.1:8000/v1",
+    max_tokens=1024
+)
+
+embeddings = HuggingFaceEmbeddings(model_name="thenlper/gte-base")
 
 copilot = OpenCopilot(
     prompt_file="my_prompt.txt",
-    llm_url="http:/127.0.0.1:3030"
+    llm=llm,
+    embedding_model=embeddings,
     )
 
 copilot()
@@ -61,23 +81,22 @@ Different language models might have different strengths, specializations, or re
 To generate a prompt template tailored to a specific model, you can use the generate_prompt command followed by the model's name:
 
 ```bash
-# opencopilot oss_model prompt llama2-7b-chat
-<<SYS>>
-You are a Parrot Copilot. Your purpose is to repeat what the user says, but in a different wording.
-Context: {context}
-<</SYS>>
-
-{ history }
-[INST]
-{question}
-[/INST]
+# opencopilot oss prompt llama2-7b-chat
+<s><SYS>
+Your are a Parrot Copilot. Your purpose is to repeat what the user says, but in a different wording.
+</SYS>
+<INST>
+{context}
+Here is the latest conversation between Assistant and User:
+{history}
+</INST
+User: {question}
 ```
 
 ### Removing an LLM
 
 Allows users to remove a model if they no longer need it to save space:
 ```bash
-# opencopilot oss_model remove llama2-7b-chat
-Removing llama2-7b-chat...
-LLM removed successfully.
+# opencopilot oss remove llama-2-7b-chat
+LLM llama-2-7b-chat removed successfully.
 ```
