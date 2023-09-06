@@ -2,26 +2,12 @@
 title: "Knowledge base"
 ---
 
+<img className="block dark:hidden" src="/images/RAG_light.png" />
+<img className="hidden dark:block" src="/images/RAG_dark.png" />
+
 The **knowledge base** is the set of documents that your copilot relies on when responding - you can think of it as the things you've taught it. The copilot has access to everything here when trying to answer your questions.
 
-### Prerequisites
-
-To use the knowledge base, you need to set up a Weaviate vector store.
-
-Make sure you have [Docker installed](https://docs.docker.com/engine/install/) and then run:
-
-```shell
-docker run \
-  -e CONTEXTIONARY_URL="contextionary:9999" \
-  -e QUERY_DEFAULTS_LIMIT="25" \
-  -e AUTHENTICATION_ANONYMOUS_ACCESS_ENABLED="true" \
-  -e PERSISTENCE_DATA_PATH="/var/lib/weaviate" \
-  -e CLUSTER_HOSTNAME="node1" \
-  -p 8080:8080 \
-  semitechnologies/weaviate:1.19.6 \
-    --host 0.0.0.0 --port '8080' --scheme http
-```
-
+**PS!** If you're on Windows, please see [prerequisites](/create/knowledge-base#windows-prerequisites).
 
 ### Adding files and folders to the knowledge base
 
@@ -41,7 +27,10 @@ The following file formats are supported by default:
 * `txt` files
 * `json` files
 
-It is also possible to add data directly from URLs.
+
+### Adding data to the knowledge base from websites
+
+**It is also possible to add data directly from URLs.**
 
 ```python
 # Scrapes the contents of the URL(s)
@@ -121,3 +110,31 @@ def load_notion_data() -> List[Document]:
 ### Caching
 
 By default, every ingested document in the knowledge base is cached locally. The cache operates on the basis of the `Document`'s content (i.e. the `page_content` field): if the hash of the content is the same, the embedding is retrieved from the cache. Otherwise the document is re-embedded and the cache is updated.
+
+
+### Windows prerequisites
+
+If you are using Windows, then you will need to set up Weaviate vector store.
+
+Make sure you have [Docker installed](https://docs.docker.com/engine/install/) and then run:
+
+```shell
+docker run \
+  -e CONTEXTIONARY_URL="contextionary:9999" \
+  -e QUERY_DEFAULTS_LIMIT="25" \
+  -e AUTHENTICATION_ANONYMOUS_ACCESS_ENABLED="true" \
+  -e PERSISTENCE_DATA_PATH="/var/lib/weaviate" \
+  -e CLUSTER_HOSTNAME="node1" \
+  -p 8080:8080 \
+  semitechnologies/weaviate:1.19.6 \
+    --host 0.0.0.0 --port '8080' --scheme http
+```
+
+Then pass the weaviate url to the OpenCopilot constructor
+
+```python
+copilot = OpenCopilot(
+    ...
+    weaviate_url="http://localhost:8080/"
+)
+```

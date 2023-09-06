@@ -5,12 +5,12 @@ title: "Prompting"
 <img height="200" src="/images/prompt_meme.png" />
 
 
-Writing a system prompt is the first big step in creating a custom copilot for your custom use case.
-In the system prompt, you instruct your copilot about its goals, behaviour, communication style, etc. 
+**Writing a meta prompt is the first impactful step in creating a custom copilot**.
+In the meta prompt, you instruct your copilot about its goals, behaviour, communication style, etc. 
 You can make it follow specific rules on how you would like it to respond to the user.
 
 
-## Writing a system prompt
+## Writing a meta prompt
 
 Don't worry about getting the prompt perfect on your first try - improving it is an iterative process.
 
@@ -24,7 +24,7 @@ Don't worry about getting the prompt perfect on your first try - improving it is
 
 ### 1st prompt iteration
 
-Following is a very simple system prompt for an E-Commerce Copilot (good for GPT-3.5 & 4). Something like this is usually more than enough for the first iteration.
+Following is a very simple meta prompt for an E-Commerce Copilot (good for GPT-3.5 & 4). Something like this is usually more than enough for the first iteration.
 You can see it describing:
 * who does the copilot portray itself as
 * what is the copilot supposed to do
@@ -54,15 +54,14 @@ and they will be substituted as follows:
 
 **Do not remove or add any variables in prompts, variables that are in curly braces \{\}. (For example: \{context\})**
 
-## Improving the system prompt
+## Improving the meta prompt
 
 There aren't many hard rules to prompting, but making the process iterative and monitoring it's behaviour is necessary to build a good copilot.
 
 ### 2nd and 3rd prompt iteration
 
-We'll dive more deeply into debugging later, but nr 1 rule of developing a copilot is actually [chatting](/welcome/getting-started#4-chat-with-the-copilot) with it and seeing if the changes improve it or not.
-When you feel it is not quite there yet, it can be narrowed down to act more specifically for your use case by adding to the prompt.
-For example:
+More on evaluation later, but nr 1 rule of developing a copilot is actually [chatting](/welcome/getting-started#4-chat-with-the-copilot) with it and seeing if the changes improve it or not.
+When you feel it is not quite there yet, it can be narrowed down to act more specifically for your use case by adding to the prompt, for example:
 * what is it's mission
 * restrictions on what not to do
 * what it can use to reply to the user
@@ -84,18 +83,18 @@ If the question is too generic, for example "How to make money?" ask user to be 
 User: {question}
 E-Commerce Copilot answer in Markdown:
 ```
-Creating a production-ready system prompt is like fine tuning a model. Depending on your use case it might start off simple but
+Creating a production-ready meta prompt is like fine tuning a model. Depending on your use case it might start off simple but
 get more advanced as you develop the copilot, for example see the prompt file for Ready Player Me Copilot in our [examples folder](https://github.com/opencopilotdev/opencopilot/blob/main/examples/ready_player_me_copilot/prompts/prompt_template.txt).
 
 Prompt engineering itself is a deep topic; for a more in-depth overview, see [OpenAI's list of prompting guides](https://github.com/openai/openai-cookbook#prompting-guides). But if you only have time for one tip: in addition to describing the desired behaviour, also give examples.
 
-**The third (and fourth, etc.) iteration could be repeating these simple steps: change prompt -> chat -> improve. Until you get the copilot to behave as you expected. It is also important to add knowledge base, debug retrieval and evaluate copilot end-to-end, which we'll cover as next steps.**
+The third (and fourth, etc.) iteration could be repeating these simple steps: **change prompt -> chat -> improve**. Until you get the copilot to behave as you expected. **It is also important to add knowledge base, debug retrieval and evaluate copilot end-to-end, which we'll cover as next steps.**
 
-## Using a system prompt
+## Using the meta prompt
 
-A system prompt can be used as a `String` in the copilot python file or imported as `.txt` file.
+A meta prompt can be used as a `String` in the copilot python file or imported as `.txt` file.
 
-### Using system prompt as a String
+### Using the meta prompt as a String
 ```python
 from opencopilot import OpenCopilot
 
@@ -120,7 +119,7 @@ copilot = OpenCopilot(
 copilot()
 ```
 
-### Using system prompt from a text file
+### Using the meta prompt from a text file
 
 Simply create a `.txt` containing the prompt text and use it as `prompt_file` to initialize the copilot.
 Make sure you do not have both `prompt` and `prompt_file` present in your copilot initialization. 
@@ -133,4 +132,6 @@ copilot = OpenCopilot(
     )
 ```
 
-When changing the system prompt source or the prompt itself in the Python file, re-run the copilot with `python copilot.py`.
+When changing the meta prompt source or the prompt itself in the Python file, re-run the copilot with `python copilot.py`.
+
+Now let's go and add custom data to your copilot's knowledge base, this a natural next step in the building phase. 
