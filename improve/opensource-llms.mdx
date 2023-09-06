@@ -4,6 +4,31 @@ title: "[in development] Working with Open Source Large Language Models"
 
 OpenCopilot CLI includes a helpful `oss` command that help you choose, setup and run an Open Source LLM locally.
 
+### Prerequisites
+
+OpenCopilot's Open Source LLM support is based on `llama.cpp` therefore it requires following libraries to work:
+
+* `llama-cpp-python[server]`
+* `pydantic_settings`
+* `sse_starlette`
+
+```bash
+pip install "llama-cpp-python[server]" pydantic_settings sse_starlette
+```
+
+More information on how to install can be found at [llama-cpp-python installation docs](https://llama-cpp-python.readthedocs.io/en/latest/#installation).
+
+
+#### macOS with Apple Sillicon
+
+If you are running OpenCopilot on macOS with Apple Sillicon you can enable Metal support for best performance:
+```bash
+CMAKE_ARGS="-DLLAMA_METAL=on" pip install "llama-cpp-python[server]" pydantic_settings sse_starlette
+```
+
+Check out [llama-cpp-python macOS installation guide](https://llama-cpp-python.readthedocs.io/en/latest/install/macos/) for details.
+
+
 ### Choosing an LLM
 
 To see a list of all the models available:
@@ -51,7 +76,9 @@ INFO:     Application startup complete.
 INFO:     Uvicorn running on http://localhost:8000 (Press CTRL+C to quit)
 ```
 
-Then a simple `copilot.py` file would then look like this:
+Now the LLM is waiting for Copilot requests at port 8000. 
+
+A simple Copilot using the local LLM  would then look like this:
 
 ```python
 from opencopilot import OpenCopilot
@@ -59,9 +86,7 @@ from opencopilot.domain.chat.models import LocalLLm
 from langchain.embeddings import HuggingFaceEmbeddings
 
 llm = LocalLLM(
-    temperature=0.0,
     llm_url="http://127.0.0.1:8000/v1",
-    max_tokens=1024
 )
 
 embeddings = HuggingFaceEmbeddings(model_name="thenlper/gte-base")
@@ -74,6 +99,9 @@ copilot = OpenCopilot(
 
 copilot()
 ```
+
+Notice that we are also using a local embeddings model.
+
 
 ### Generating a Model-Specific Prompt Template
 
