@@ -5,24 +5,25 @@ title: "Iterative development"
 A copilot is only valuable if it's truly custom to your use case: it has access to the relevant
 information and communicates with the users in the specific style you want. 
 To get there and unlock it's true value, the development has to be iterative. 
-**Iterative development means continuously editing the prompt and adding or removing data to knowledge base 
-while using the debugging and evaluation methods** that come with OpenCopilot to clearly see your copilot improve.
+
+Iterative development means **1. building:** editing the prompt and the data in copilot's knowledge base, **2.
+measuring:** using evaluation and debugging methods that come with OpenCopilot, and **3. 
+learning:** based on evaluation results - did the copilot improve or not. Analogous to [lean loop](https://www.leaneast.com/wp-content/uploads/2019/06/Lean-Startup-Thinking.jpg).
 
 <img className="block dark:hidden" src="/images/iterative_dev_light.png" />
 <img className="hidden dark:block" src="/images/iterative_dev_dark.png" />
 
-It doesn't mean that developing a copilot happens exactly in this order and in concrete cycles, 
-it is much more a way of thinking about building a copilot, sometimes editing the prompt
-and having a quick chat with the copilot will do just fine to see the difference.
+Developing a copilot doesn't always go exactly in this order, sometimes editing the prompt
+and having a quick chat (manual evaluation) with the copilot will do just fine to see the difference.
 
-**From our experience, we recommend starting to build your custom copilot like this:**
-1. Start with promting, it's the most impactful tool in the beginning
-2. After a few first tries with prompting, add data to the knowledge base
-3. Continuously chat with the copilot while putting a few cycles into the previous two - using CLI command or the chat UI
-4. Bring in our debugging tools to make sure copilot is working as you'd expect
-5. Automated evaluation could come in whenever you feel manual chatting takes too long to evaluate
+**Based on our experience, best to start building your custom copilot like this:**
+1. Start with _prompting_, it's the most impactful tool in the beginning
+2. After a few first tries with prompting, add your custom data to the _knowledge base_
+3. Continuously _evaluate_ the copilot manually by chatting with it - using CLI command or the chat UI
+4. _Automated evaluation_ could come in whenever you feel manual chatting takes too long
+5. Use our _debugging_ tools to get a deeper understanding of copilot internally (LLM, retrieval, etc.)
 
-For insipiration see [example use cases](/welcome/overview#use-cases) and kick off building your custom copilot with prompting:
+For insipiration see [example use cases](/welcome/overview#use-cases) and **kick off building your custom copilot with prompting:**
 
 <CardGroup cols={2}>
   <Card
@@ -40,18 +41,18 @@ For insipiration see [example use cases](/welcome/overview#use-cases) and kick o
     Add a knowledge base so your copilot can rely on it to provide more relevant answers.
   </Card>
   <Card
-    title="Debugging"
-    icon="bug"
-    href="/create/debugging"
-  >
-  Use our debugging tools and recommendations to understand how to improve your copilot.
-  </Card>
-  <Card
     title="Evaluation"
     icon="ruler"
     href="/create/evaluation"
   >
   Set up automatic evaluation of your copilot's responses so you can tell whether it's getting better.
+  </Card>
+  <Card
+    title="Debugging"
+    icon="bug"
+    href="/create/debugging"
+  >
+  Use our debugging tools and recommendations to understand how to improve your copilot.
   </Card>
 
 </CardGroup>
