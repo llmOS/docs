@@ -2,16 +2,27 @@
 title: "Iterative development"
 ---
 
-A copilot is only valuable if it is truly custom to your use case: it has access to the relevant
-information and communicates with the users in the specific style you want. To get there and unlock it's
-true value, the development has to be iterative. This is the best way to see your copilot improving.
-Think of it like leveling up a Tamagotchi!
+A copilot is only valuable if it's truly custom to your use case: it has access to the relevant
+information and communicates with the users in the specific style you want. 
+To get there and unlock it's true value, the development has to be iterative. 
+**Iterative development means continuously editing the prompt and adding or removing data to knowledge base 
+while using the debugging and evaluation methods** that come with OpenCopilot to clearly see your copilot improve.
 
-<img className="block dark:hidden" src="/images/dev_cycle_light.png" />
-<img className="hidden dark:block" src="/images/dev_cycle_dark.png" />
+<img className="block dark:hidden" src="/images/iterative_dev_light.png" />
+<img className="hidden dark:block" src="/images/iterative_dev_dark.png" />
 
-After you see [example use cases](/welcome/overview#use-cases) to get inspired, it is time to create and start leveling up your own custom copilot!
-Kick it off with prompting your copilot:
+It doesn't mean that developing a copilot happens exactly in this order and in concrete cycles, 
+it is much more a way of thinking about building a copilot, sometimes editing the prompt
+and having a quick chat with the copilot will do just fine to see the difference.
+
+**From our experience, we recommend starting to build your custom copilot like this:**
+1. Start with promting, it's the most impactful tool in the beginning
+2. After a few first tries with prompting, add data to the knowledge base
+3. Continuously chat with the copilot while putting a few cycles into the previous two - using CLI command or the chat UI
+4. Bring in our debugging tools to make sure copilot is working as you'd expect
+5. Automated evaluation could come in whenever you feel manual chatting takes too long to evaluate
+
+For insipiration see [example use cases](/welcome/overview#use-cases) and kick off building your custom copilot with prompting:
 
 <CardGroup cols={2}>
   <Card
