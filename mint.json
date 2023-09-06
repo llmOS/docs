@@ -30,7 +30,14 @@
     "url": "https://github.com/opencopilotdev/opencopilot"
   },
   "tabs": [
-  ],
+    {
+      "name": "Copilot API reference",
+      "url": "api-reference"
+    }
+      ],
+  "primaryTab": {
+    "name": "Documentation"
+  },
   "anchors": [
     {
       "name": "GitHub",
@@ -55,7 +62,24 @@
     {
       "group": "Integrate your copilot",
       "pages": ["integrate/configuration", "integrate/rest-api", "integrate/deploy", "integrate/monitoring"]
-    }
+    },
+      {
+        "group": "Conversation",
+        "pages": [
+          "api-reference/conversation/list-conversations",
+          "api-reference/conversation/retrieve-a-conversation",
+          "api-reference/conversation/send-a-message-to-the-copilot-and-receive-a-non-streamed-response",
+          "api-reference/conversation/delete-a-conversation",
+          "api-reference/conversation/send-a-message-to-the-copilot-and-stream-the-response",
+          "api-reference/conversation/get-debug-information-about-a-message"
+        ]
+      },
+      {
+        "group": "Token",
+        "pages": [
+          "api-reference/token/generate-a-json-web-token"
+        ]
+      }    
   ],
   "footerSocials": {
     "github": "https://github.com/opencopilotdev/opencopilot",
