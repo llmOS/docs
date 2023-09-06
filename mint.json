@@ -30,7 +30,14 @@
     "url": "https://github.com/opencopilotdev/opencopilot"
   },
   "tabs": [
-  ],
+    {
+      "name": "Copilot API reference",
+      "url": "api-reference"
+    }
+      ],
+  "primaryTab": {
+    "name": "Documentation"
+  },
   "anchors": [
     {
       "name": "GitHub",
@@ -55,6 +62,10 @@
     {
       "group": "Integrate your copilot",
       "pages": ["integrate/configuration", "integrate/rest-api", "integrate/deploy", "integrate/monitoring"]
+    },
+    {
+      "group": "API reference",
+      "pages": ["api-reference/a"]
     }
   ],
   "footerSocials": {
