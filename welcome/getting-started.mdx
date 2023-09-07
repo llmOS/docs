@@ -12,9 +12,9 @@ As prerequisites, you need to have **Python 3.8+** and **pip** installed.
 pip install opencopilot-ai
 ```
 
-### 2. Create a new Python file to set up a minimal Copilot
-For example, you can create an AWS CLI Copilot using the following code by adding it to a `copilot.py` file.
-Make sure to replace `openai_api_key` with your 🔑 own [OpenAI API key](https://platform.openai.com/account/api-keys).
+### 2. Create a new python file to set up a minimal Copilot
+
+For example, you can create an AWS CLI Copilot using the following code by adding it to a `copilot.py` file. **Make sure to replace** `openai_api_key` with your 🔑 [own OpenAI API key](https://platform.openai.com/account/api-keys).
 
 ```python
 from opencopilot import OpenCopilot
@@ -61,7 +61,12 @@ You can chat with your copilot in the UI at [localhost:3000/ui](http://localhost
 opencopilot chat "Hello, who are you?"
 ```
 
-### 5. Create your own custom Copilot
+### 5. Create your own copilot
 
-* [Start developing your copilot here](/create/) by prompting, adding knowledge base to context, etc.
-* Read more about the core features and stack choices of OpenCopilot in [Overview](/welcome/overview).
+After seeing how easy it is to set up a copilot, you can now create your own and level it up step by step. For this,
+[get started here](/create/iterative-development), or check a more detailed example of the AWS copilot in the [copilot examples directory](https://github.com/opencopilotdev/opencopilot/tree/main/examples/aws_copilot).
+
+
+### Getting help
+
+If you have any questions about OpenCopilot, feel free to [get in touch](/welcome/introduction#getting-help)!
