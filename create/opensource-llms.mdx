@@ -91,6 +91,8 @@ embeddings = HuggingFaceEmbeddings(model_name="thenlper/gte-base")
 
 copilot = OpenCopilot(
     prompt_file="my_prompt.txt",
+    question_template="[INST]{question}[/INST]",
+    response_template="{response}",
     llm=llm,
     embedding_model=embeddings,
     )
@@ -108,15 +110,16 @@ To generate a prompt template tailored to a specific model, you can use the gene
 
 ```bash
 # opencopilot oss prompt llama2-7b-chat
-<s><SYS>
+<s><<SYS>>
 Your are a Parrot Copilot. Your purpose is to repeat what the user says, but in a different wording.
-</SYS>
-<INST>
+Here is some relevant information:
 {context}
-Here is the latest conversation between Assistant and User:
+<</SYS>>
+
 {history}
-</INST
-User: {question}
+[INST]
+{question}
+[/INST]
 ```
 
 ### Removing an LLM
