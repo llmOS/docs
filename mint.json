@@ -46,7 +46,7 @@
   "navigation": [
     {
       "group": "Welcome",
-      "pages": ["welcome/introduction", "welcome/overview", "welcome/getting-started"]
+      "pages": ["welcome/introduction", "welcome/overview", "welcome/use-cases","welcome/getting-started"]
     },
     {
       "group": "Create your custom copilot",
@@ -54,7 +54,7 @@
     },
     {
       "group": "Integrate your copilot",
-      "pages": ["integrate/configuration", "integrate/rest-api", "integrate/deploy", "integrate/monitoring"]
+      "pages": ["integrate/configuration", "integrate/front-end", "integrate/rest-api", "integrate/deploy", "integrate/monitoring"]
     }
   ],
   "footerSocials": {
