@@ -6,19 +6,20 @@ The **knowledge base** is the set of documents that your copilot relies on when 
 
 ### Prerequisites
 
-If you are using Windows, then you will need to set up Weaviate vector store.
+If you are using Windows, then you will need to set up Weaviate vector store manually. Click to see the instructions below:
 
+<Accordion title="Setting up Weaviate on Windows">
 Make sure you have [Docker installed](https://docs.docker.com/engine/install/) and then run:
 
 ```shell
 docker run \
-  -e CONTEXTIONARY_URL="contextionary:9999" \
-  -e QUERY_DEFAULTS_LIMIT="25" \
-  -e AUTHENTICATION_ANONYMOUS_ACCESS_ENABLED="true" \
-  -e PERSISTENCE_DATA_PATH="/var/lib/weaviate" \
-  -e CLUSTER_HOSTNAME="node1" \
-  -p 8080:8080 \
-  semitechnologies/weaviate:1.19.6 \
+-e CONTEXTIONARY_URL="contextionary:9999" \
+-e QUERY_DEFAULTS_LIMIT="25" \
+-e AUTHENTICATION_ANONYMOUS_ACCESS_ENABLED="true" \
+-e PERSISTENCE_DATA_PATH="/var/lib/weaviate" \
+-e CLUSTER_HOSTNAME="node1" \
+-p 8080:8080 \
+semitechnologies/weaviate:1.19.6 \
     --host 0.0.0.0 --port '8080' --scheme http
 ```
 
@@ -29,6 +30,7 @@ copilot = OpenCopilot(
     weaviate_url="http://localhost:8080/"
 )
 ```
+</Accordion>
 
 
 ### Adding files and folders to the knowledge base
