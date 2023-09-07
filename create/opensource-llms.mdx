@@ -76,13 +76,15 @@ INFO:     Application startup complete.
 INFO:     Uvicorn running on http://localhost:8000 (Press CTRL+C to quit)
 ```
 
+The model will be downloaded upon first use and then stored in the `~/.opencopilot/models` directory.
+
 Now the LLM is waiting for Copilot requests at port 8000. 
 
 A simple Copilot using the local LLM  would then look like this:
 
 ```python
 from opencopilot import OpenCopilot
-from opencopilot.domain.chat.models import LocalLLm
+from opencopilot.domain.chat.models import LocalLLM
 from langchain.embeddings import HuggingFaceEmbeddings
 
 llm = LocalLLM(
@@ -100,7 +102,7 @@ copilot = OpenCopilot(
 copilot()
 ```
 
-Notice that we are also using a local embeddings model.
+Note that to run this example, **you need to also install sentence-transformers** with `pip install sentence_transformers` because we are using a local embeddings model.
 
 
 ### Generating a Model-Specific Prompt Template
