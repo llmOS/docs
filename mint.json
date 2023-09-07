@@ -46,15 +46,15 @@
   "navigation": [
     {
       "group": "Welcome",
-      "pages": ["welcome/introduction", "welcome/overview", "welcome/getting-started"]
+      "pages": ["welcome/introduction", "welcome/overview", "welcome/use-cases","welcome/getting-started"]
     },
     {
-      "group": "Improve your copilot",
-      "pages": ["improve/customize-your-copilot", "improve/prompting", "improve/knowledge-base", "improve/evaluation", "improve/debugging"]
+      "group": "Create your custom copilot",
+      "pages": ["create/iterative-development", "create/prompting", "create/knowledge-base", "create/evaluation", "create/debugging"]
     },
     {
       "group": "Integrate your copilot",
-      "pages": ["integrate/configuration", "integrate/rest-api", "integrate/deploy", "integrate/monitoring"]
+      "pages": ["integrate/configuration", "integrate/front-end", "integrate/rest-api", "integrate/deploy", "integrate/monitoring"]
     }
   ],
   "footerSocials": {

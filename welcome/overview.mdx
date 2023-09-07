@@ -2,51 +2,34 @@
 title: 'Overview'
 ---
 
-### Key features
-
-Here's what OpenCopilot comes with out of the box:
-
-* Intuitive way to [define copilots in Python code](/welcome/getting-started)
-* Support for adding [knowledge bases](/improve/knowledge-base) to your copilot ("chat with your data" style)
-    * Use custom data sources, or any LangChain-compatible document loader
-* Manages conversation history for you
-* [REST API](/integrate/rest-api), including streaming support
-* [Monitoring](/integrate/monitoring) for your LLM & copilot usage
-* [Front-end](https://github.com/opencopilotdev/opencopilot-frontend) template
-* Use any LLM (`gpt-3.5-turbo-16k` by default)
-* Coming soon: dynamic context, evaluation, and more
-
-### Stack overview
-
-OpenCopilot provides one coherent end-to-end stack which is purposely designed for building a variety of copilots. From LLM selection (OSS LLMs upcoming), knowledge base, monitoring, evaluation, etc - it covers all the needs to build a useful copilot.
+OpenCopilot provides one coherent end-to-end stack which is purposely designed for building a variety of copilots.
+From LLM selection (GPTs & OSS LLMs), knowledge base, monitoring, evaluation, etc - **out of the box it covers all the needs to build a useful copilot.**
 
 <img className="block dark:hidden" src="/images/lightstack.png" />
 <img className="hidden dark:block" src="/images/darkstack.png" />
 
-### Use cases
+### Application
+* [Chat UI](/welcome/getting-started#4-chat-with-the-copilot) within the OpenCopilot Python package for quick development (JS SDK)
+* [Front-end](https://github.com/opencopilotdev/opencopilot-frontend) template
 
-What can you do with copilots? Here are some examples:
+### Orchestration
+* Intuitive way to [define copilots in Python code](/welcome/getting-started)
+* Support for adding [knowledge bases](/create/knowledge-base) to your copilot
+    * Use external data sources, custom, or any LangChain-compatible document loader
+* Manages conversation history for you
+* [REST API](/integrate/rest-api), including streaming support
+* Coming soon: dynamic context
 
-1.  **Developer tooling Copilot**: [Ready Player Me](https://readyplayerdev.me/), the leading avatar tooling platform, built a CTO Copilot that helps their users integrate avatar SDK to games. In addition to providing code snippets, the copilot helps developers understand the product, integration errors, licensing concerns, third-party integrations, and much more. Click [here](https://rpm.opencopilot.dev/) to see copilot in action. Impact for Ready Player Me: **increased developer retention and happiness.**
+### Iterative development
+* [Evaluation](/create/evaluation) methods to measure improvements
+* [Debugging](/create/debugging) tools to get detailed insight
+* [Monitoring](/integrate/monitoring) for your LLM & copilot usage
 
-<img height="200" src="/images/ready_player_me.png" />
+### Models & infrastructure
+* Use any LLM (`gpt-3.5-turbo-16k` by default)
+* Easy to deploy on any infrastructure
 
-2.  **SaaS Copilot**: [ChatSpot](https://chatspot.ai/), a Copilot by HubSpot enables their users to close deals faster, streamline RevOps and enable sales people to focus only on what matters by automating the tedious tasks. Most SaaS products are either overly complex and users don't get enough value of it. SaaS Copilots enable a human-like UX which drive their adoption.
-
-<img height="200" src="/images/chatspot.png" />
-
-3.  **E-commerce Copilot**: [Shopify](https://www.shopify.com/magic) Copilot is designed for store owners to grow revenue and simplify commerce. Essentially, a Copilot that enables to become a better entrepreneur on the Internet.
-
-<img height="200" src="/images/shopify_sidekick.png" />
-
-4.  **Company internal Copilot**: Companies spend enormous amount of money and time on building internal tools. Copilots can reduce that as it consolidates many SaaS products into one and can drive efficiency and cost savings across the company. For example, many startups pay hefty legal bills to their lawyers. At OpenCopilot we built an internal Legal Copilot which has reduced our legal spend by 50%. We've seen impactful Copilots built in the areas of HR, finance, operations, etc.
-
-<img height="200" src="/images/legal.png" />
-
-5.  **Individual/Creator Copilot**: ChatGPT is extremely powerful but held back because it's too generic and not personal enough. All of the founders at OpenCopilot have built a Founder Copilot which is personal and enables us with strategic decision making, executing at a high clip, etc. Also, creators can create their own Copilots which helps scale their time with their community.
-
-
-### Design principles
+## Design principles
 
 OpenCopilot is designed with the following principles in mind:
 

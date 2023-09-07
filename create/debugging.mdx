@@ -4,13 +4,13 @@ title: "Debugging"
 
 You almost never get your copilot right on the first try, so you'll need to debug why you aren't getting the responses you'd like.
 
-There can be many reasons, but the most common is that the LLM does not see the relevant document from the [knowledge base](/improve/knowledge-base), and so does not have enough context to produce a good response. This usually happens because the document is indexed in the knowledge base, but the copilot does not retrieve it -- most likely because the user query wasn't a close enough match to the document in the embedding space.
+There can be many reasons, but the most common is that the LLM does not see the relevant document from the [knowledge base](/create/knowledge-base), and so does not have enough context to produce a good response. This usually happens because the document is indexed in the knowledge base, but the copilot does not retrieve it -- most likely because the user query wasn't a close enough match to the document in the embedding space.
 
 To debug this and other issues, you can use either the CLI, or the debug view.
 
 ### Debugging with the CLI
 
-Introduced in the [v0.3.3](https://github.com/opencopilotdev/opencopilot/releases/tag/v0.3.3) release, the CLI includes a helpful `retrieve` command that lets you debug the [knowledge base](/improve/knowledge-base) from various angles.
+Introduced in the [v0.3.3](https://github.com/opencopilotdev/opencopilot/releases/tag/v0.3.3) release, the CLI includes a helpful `retrieve` command that lets you debug the [knowledge base](/create/knowledge-base) from various angles.
 
 Once you've installed the latest version of the Python package, you can run `opencopilot retrieve` to see a help message similar to this:
 
@@ -21,7 +21,7 @@ Once you've installed the latest version of the Python package, you can run `ope
  Query the retrieval pipeline.                                              
                                                                             
 ╭─ Options ────────────────────────────────────────────────────────────────╮
-│ --text    -t      TEXT  Your question, i.e. "How to improve retrieval?"  │
+│ --text    -t      TEXT  Your question, i.e. "How to create retrieval?"  │
 │                         [default: None]                                  │
 │ --source  -s      TEXT  Source to match - supports wildcards             │
 │                         [default: None]                                  │
@@ -62,11 +62,11 @@ There are two ways to open the debug view once enabled:
 1. "Debug" button in the top right corner of the screen will open or close the debugging sidebar.
 2. A bug icon next to a copilot response will take you to the debug view of that message.
 
-<img src="/improve/debugging_images/how_to_open_debug_view.png" />
+<img src="/create/debugging_images/how_to_open_debug_view.png" />
 
 This is what the debug view looks like:
 
-<img src="/improve/debugging_images/debug_view_open.png" />
+<img src="/create/debugging_images/debug_view_open.png" />
 
 The debug view will show you the following information:
 
@@ -80,9 +80,9 @@ The debug view will show you the following information:
 You can click to open any section. Wherever applicable, you'll also see the token count for that section.
 
 For example, here's a debug view of the prompt template:
-<img src="/improve/debugging_images/debug_view_prompt_template.png" />
+<img src="/create/debugging_images/debug_view_prompt_template.png" />
 
 ...and here's a debug view of the retrieved documents:
-<img src="/improve/debugging_images/debug_view_retrieved_docs.png" />
+<img src="/create/debugging_images/debug_view_retrieved_docs.png" />
 
-We recommend keeping the debug view enabled while you're developing your copilot. It will help you understand what's going on under the hood, and tell you whether you should be improving the [prompt](/improve/prompting), adding documents to the [knowledge base](/improve/knowledge-base), or anything else.
+We recommend keeping the debug view enabled while you're developing your copilot. It will help you understand what's going on under the hood, and tell you whether you should be improving the [prompt](/create/prompting), adding documents to the [knowledge base](/create/knowledge-base), or anything else.
