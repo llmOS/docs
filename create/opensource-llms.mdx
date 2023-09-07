@@ -6,14 +6,10 @@ OpenCopilot CLI includes a helpful `oss` command that help you choose, setup and
 
 ### Prerequisites
 
-OpenCopilot's Open Source LLM support is based on `llama.cpp` therefore it requires following libraries to work:
-
-* `llama-cpp-python[server]`
-* `pydantic_settings`
-* `sse_starlette`
+OpenCopilot's Open Source LLM support is based on `llama.cpp` therefore it requires `llama-cpp-python` library to work:
 
 ```bash
-pip install "llama-cpp-python[server]" pydantic_settings sse_starlette
+pip install llama-cpp-python
 ```
 
 More information on how to install can be found at [llama-cpp-python installation docs](https://llama-cpp-python.readthedocs.io/en/latest/#installation).
@@ -23,7 +19,7 @@ More information on how to install can be found at [llama-cpp-python installatio
 
 If you are running OpenCopilot on macOS with Apple Sillicon you can enable Metal support for best performance:
 ```bash
-CMAKE_ARGS="-DLLAMA_METAL=on" pip install "llama-cpp-python[server]" pydantic_settings sse_starlette
+CMAKE_ARGS="-DLLAMA_METAL=on" pip install llama-cpp-python
 ```
 
 Check out [llama-cpp-python macOS installation guide](https://llama-cpp-python.readthedocs.io/en/latest/install/macos/) for details.
