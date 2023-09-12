@@ -1,0 +1,59 @@
+---
+title: 'Slack Integration'
+---
+
+
+1. Fork the [Replit project](https://replit.com/@OpenCopilot/OpenCopilot-SLACK)
+2. Create a [Slack App](https://api.slack.com/apps) -> Create New App
+- From an app manifest
+- Select the workplace You wish to use
+- Paste in the following manifest and create the app:
+```
+{
+    "display_information": {
+        "name": "OpenCopilot",
+        "description": "Your personal LLM",
+        "background_color": "#030303"
+    },
+    "features": {
+        "app_home": {
+            "home_tab_enabled": true,
+            "messages_tab_enabled": false,
+            "messages_tab_read_only_enabled": false
+        },
+        "bot_user": {
+            "display_name": "OpenCopilot",
+            "always_online": true
+        }
+    },
+    "oauth_config": {
+        "scopes": {
+            "bot": [
+                "app_mentions:read",
+                "chat:write",
+                "im:history"
+            ]
+        }
+    },
+    "settings": {
+        "event_subscriptions": {
+            "request_url": "https://YOUR_DEPLOYMENT_URL/slack/events",
+            "bot_events": [
+                "app_mention",
+                "message.im"
+            ]
+        },
+        "org_deploy_enabled": false,
+        "socket_mode_enabled": false,
+        "token_rotation_enabled": false
+    }
+}
+```
+3. Click: "Install to workplace" -> "Allow"
+4. Add OpenAI API key to Replit -> Secrets -> OPENAI_API_KEY
+5. Add the signing secret from Slack App credentials -> "Signing Secret" as an environment variable to Replit -> Secrets -> SLACK_SIGNING_SECRET
+6. Go to Slack "Settings" -> "Install App" (left sidebar) -> "Bot User OAuth Token" and copy the value and add to Replit -> Secrets -> SLACK_BOT_TOKEN
+7. Run the App in Replit (add whatever data You wish to the app). To keep the slack bot working constantly, You will need to enable "Always On" in the settings in the top left.
+8. Go to Slack App settings -> "Event Subscriptions" (left sidebar) and replace YOUR_DEPLOYMENT_URL with the url of your replit deployment (make sure to keep the /slack/events in the URL) - once its verified, save the changes
+9. Go to Slack App settings -> "App Home" (left sidebar) enable "Messages Tab"
+10. Message your Bot on Slack and get a response!
