@@ -50,7 +50,7 @@
     },
     {
       "group": "Create your custom copilot",
-      "pages": ["create/iterative-development", "create/prompting", "create/knowledge-base", "create/evaluation", "create/debugging"]
+      "pages": ["create/iterative-development", "create/prompting", "create/knowledge-base", "create/evaluation", "create/debugging", "create/opensource-llms"]
     },
     {
       "group": "Integrate your copilot",
