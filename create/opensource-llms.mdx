@@ -1,6 +1,7 @@
 ---
-title: "[in development] Working with Open Source Large Language Models"
+title: "Working with Open Source Large Language Models"
 ---
+<Warning>Available since version 0.3.6</Warning>
 
 OpenCopilot CLI includes a helpful `oss` command that help you choose, setup and run an Open Source LLM locally.
 
@@ -80,19 +81,19 @@ A simple Copilot using the local LLM  would then look like this:
 
 ```python
 from opencopilot import OpenCopilot
-from opencopilot.domain.chat.models import LocalLLM
+from opencopilot.domain.chat.models.local import LocalLLM
 from langchain.embeddings import HuggingFaceEmbeddings
 
 llm = LocalLLM(
-    llm_url="http://127.0.0.1:8000/v1",
+    llm_url="http://127.0.0.1:8000/",
 )
 
 embeddings = HuggingFaceEmbeddings(model_name="thenlper/gte-base")
 
 copilot = OpenCopilot(
     prompt_file="my_prompt.txt",
-    question_template="[INST]{question}[/INST]",
-    response_template="{response}",
+    question_template=" {question} [/INST] ",
+    response_template="{response} </s><s> [INST]",
     llm=llm,
     embedding_model=embeddings,
     )
@@ -110,16 +111,14 @@ To generate a prompt template tailored to a specific model, you can use the gene
 
 ```bash
 # opencopilot oss prompt llama2-7b-chat
-<s><<SYS>>
-You are a Parrot Copilot. Your purpose is to repeat what the user says, but in a different wording.
-Here is some relevant information:
+<s>[INST] <<SYS>>
+Your purpose is to repeat what the user says, but in a different wording.
+Don't add anything, don't answer any questions, don't give any advice or comment - just repeat.
+Context:
 {context}
 <</SYS>>
 
-{history}
-[INST]
-{question}
-[/INST]
+{history} Repeat: {question} [/INST]
 ```
 
 ### Removing an LLM
