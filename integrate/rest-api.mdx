@@ -7,3 +7,27 @@ The largest value of the copilot comes from integrating it tightly into your own
 To use the REST API, you need to have a copilot running. See the [Getting Started](/welcome/getting-started) guide for instructions on how to run a copilot.
 
 Once the copilot is running, you can see live Swagger documentation of the API at [0.0.0.0:3000/docs](http://0.0.0.0:3000/docs) (if you're running the copilot on a different port, replace `3000` with the port you're running it on).
+
+## Router
+
+OpenCopilot also exposes a [FastAPI](https://fastapi.tiangolo.com/) router object, for expanding the API however you need.
+
+```
+from opencopilot import OpenCopilot
+
+copilot = OpenCopilot(
+    prompt_file="my_prompt.txt",
+)
+
+
+# @copilot.router is the router that is exposed
+@copilot.router.get(
+    "/my-endpoint",
+)
+async def my_endpoint():
+    return {"key": "value"}
+
+copilot()
+```
+
+For more information about how to define endpoints and what's supported, check out the [FastAPI](https://fastapi.tiangolo.com/) docs.
