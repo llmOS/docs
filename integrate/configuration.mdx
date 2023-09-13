@@ -8,33 +8,42 @@ There are many things you can optionally configure in OpenCopilot. To change tho
 
 * `prompt` / `prompt_file`: Define the system prompt. Use `prompt` to pass a string as prompt, or `prompt_file` to specify a path to a prompt file.
 * `openai_api_key`:  OpenAI API key. Used for making LLM and embedding calls if chosen LLM is OpenAI.
-* `copilot_name`: Name your copilot. Different names will save the state separately. Default: "default".
+* `copilot_name`: Name of the copilot. The name will be used to save the unique state of the copilot, for example the cache for downloaded knowledge base files and embeddings. Default: "default".
 
-### 2. Messaging Templates
+### 2. Model Settings
 
-* `question_template`: A template used to identify and label where a message comes from in a back-and-forth conversation. Default: `### Human: {question}`
-* `response_template`: A template used to identify and label where a message comes from in a back-and-forth conversation. Default: `### Assistant: {response}`
+* `llm`: Determines what LLM the copilot will use. Can be either an OpenAI LLM name as a string (`gpt-3.5-turbo-16k` or `gpt-4`) or an instance of `langchain.chat_models.base.BaseChatModel`. Default: `gpt-3.5-turbo-16k`.
+* `embedding_model`: Determines what embedding model the copilot will use. Can be either an OpenAI embedding model name as a string (like `text-embedding-ada-002`) or an instance of `langchain.embeddings.base.Embeddings`. Default: `text-embedding-ada-002`.
+* `max_document_size_mb`:Maximum document size accepted for ingestion, in MB. Default: 50.
 
-### 3. Network Settings
+### 3. Messaging Templates
+
+When using an OSS LLM the prompt template needs to be provided. For example LLama2 is trained on a specific prompt structure that looks like this:
+
+```
+<s>[INST] <<SYS>>
+You are a Copilot
+<</SYS>>
+What are all these weird symbols? [/INST]
+```
+
+* `question_template`: A template used to identify and label where a message comes from in a back-and-forth conversation. For example with `llama-2-13b-chat` the template should be `{question} [/INST]`. Default: `### Human: {question}`.
+* `response_template`: A template used to identify and label where a message comes from in a back-and-forth conversation. For example with `llama-2-13b-chat` the template should be `{response} </s><s> [INST]`. Default: `### Assistant: {response}`.
+
+### 4. Network Settings
 
 * `host`: Bind socket to this host. Default: `127.0.0.1`.
 * `api_port`: Define the socket port. Default: `3000`.
 
-### 4. Environment and Permissions
+### 5. Environment and Permissions
 
 * `environment`: Specify the environment, e.g., production or development. Default: `local`.
-* `allowed_origins`: Set which origins can access the response. Default: `*`
+* `allowed_origins`: Set which origins can access the response. Default: `*`.
 
-### 5. Knowledge Base Configuration
+### 6. Knowledge Base Configuration
 
-* `weaviate_url`: The URL of the Weaviate vector store that will be used for the [Knowledge base](/create/knowledge-base). If `None`, the copilot will start an embedded Weaviate vector store. Default: `None`.
-* `weaviate_read_timeout`: Maximum wait time for a vector store query, in seconds. Default: `120`.
-
-### 6. Model Settings
-
-* `llm`: Determines what LLM the copilot will use. Can be either an OpenAI LLM name as a string (`gpt-3.5-turbo-16k` or `gpt-4`) or an instance of `langchain.chat_models.base.BaseChatModel`. Default: `gpt-3.5-turbo-16k`.
-* `embedding_model`: Determines what embedding model the copilot will use. Can be either an OpenAI embedding model name as a string (like `text-embedding-ada-002`) or an instance of `langchain.embeddings.base.Embeddings`. Default: `text-embedding-ada-002`.
-* `max_document_size_mb`: Maximum document size accepted for ingestion, in MB. Default: 50.
+* `weaviate_url`: The URL of the Weaviate vector store that will be used for the [Knowledge base](/create/knowledge-base). If no url is provided copilot will start an embedded Weaviate. Default: None.
+* `weaviate_read_timeout`: Maximum wait time for a vector store query. Default: 120 seconds.
 
 ### 7. Authentication and Security
 
