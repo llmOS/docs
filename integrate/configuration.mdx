@@ -4,14 +4,53 @@ title: 'Configuration'
 
 There are many things you can optionally configure in OpenCopilot. To change those, pass in the relevant argument to the `OpenCopilot()` initializer.
 
+1. Basic Configuration
 
-* `prompt_file` or `prompt`: The system prompt. The `prompt_file` argument can be used for a path; the `prompt` argument for passing in a string.
-* `openai_api_key`: OpenAI API key. Used for making LLM and embedding calls.
-* `helicone_api_key`: [Helicone](https://www.helicone.ai/) API key. Used for [Monitoring](/integrate/monitoring).  
-* `llm`: Which LLM to use. Defaults to `gpt-3.5-turbo-16k`; currently the only alternative is `gpt-4`.
-* `log_file_path`: Path to the log file.
-* `weaviate_url`: URL of an already-running Weaviate instance to use for the [Knowledge base](/create/knowledge-base).
-* `jwt_client_id` and `jwt_client_secret`: If you'd like to enable JWT authentication, you can pass in the client ID and secret here.
-* `api_base_url` and `api_port`: what URL and port your copilot should be available at. Defaults to `127.0.0.1:3000`
+* `prompt` / `prompt_file`: Define the system prompt. Use prompt to pass a string, or prompt_file to specify a path to a prompt file.
+* `openai_api_key`:  OpenAI API key. Used for making LLM and embedding calls if chosen LLM is OpenAI
+* `copilot_name`: Name your copilot. Different names will save the state separately. Default: "default".
+
+2. Messaging Templates
+
+* `question_template`: A template used to identify and label where a message comes from in a back-and-forth conversation. Default: "### Human: {question}"
+* `response_template`: A template used to identify and label where a message comes from in a back-and-forth conversation. Default: "### Assistant: {response}"
+
+3. Network Settings
+
+* `host`: Bind socket to this host. Default: "127.0.0.1".
+* `api_port`: Define the socket port. Default: 3000.
+
+4. Environment and Permissions
+
+* `environment`: Specify the environment, e.g., production or development. Default: "local".
+* `allowed_origins`: Set which origins can access the response. Default: "*"
+
+5. Knowledge Base Configuration
+
+* `weaviate_url`: The URL of the Weaviate vector store that will be used for the [Knowledge base](/create/knowledge-base). If no url is provided copilot will start an embedded Weaviate. Default: None.
+* `weaviate_read_timeout`: Maximum wait time for a vector store query. Default: 120 seconds.
+
+6. Model Settings
+
+* `llm`: ChooseDefines what LLM the copilot will use. It can be an OpenAI LLM as a string ["gpt-3.5-turbo-16k" or "gpt-4"] or an instance of BaseChatModel. Default: "gpt-3.5-turbo-16k"
+* `embedding_model`: Select the embedding model. It can be an OpenAI string model or an instance of Embeddings. Default: "text-embedding-ada-002"
+* `max_document_size_mb`: Maximum document size for ingestion. Default: 50.
+
+7. Authentication and Security
+
+* `auth_type`: Choose the authentication method for REST API calls. Options: "JWT", "API_KEY", None. Depending on your choice, you might need to provide additional parameters:
+    * For "API_KEY": `api_key`
+    * For "JWT":
+        * `jwt_client_id`
+        * `jwt_client_secret`
+        * `jwt_token_expiration_seconds`: specify how long the JWT token is valid for. Default: 1 day.
+
+8. Monitoring and Logging
+
+* `helicone_api_key`: [Helicone](https://www.helicone.ai/) API key. Used for [Monitoring](/integrate/monitoring).
+* `helicone_rate_limit_policy`: Implement rate limiting to ensure fair resource usage.
+* `log_level`: Default python logging module log level. Documentation [here](https://docs.python.org/3/library/logging.html#levels)
+
+For an exhaustive list of configurations and detailed method implementations, visit the OpenCopilot GitHub page.
 
 To see the full and up-to-date list, see the `OpenCopilot` class initializer and method implementations on the [OpenCopilot Github](https://github.com/opencopilotdev/opencopilot/blob/main/opencopilot/application.py).
