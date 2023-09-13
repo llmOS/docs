@@ -2,12 +2,16 @@
 title: 'Slack Integration'
 ---
 
+This tutorial will guide you through deploying a copilot on Replit and integrating it with a Slack Bot for communication within Slack.
+
 
 1. Fork the [Replit project](https://replit.com/@OpenCopilot/OpenCopilot-SLACK)
-2. Create a [Slack App](https://api.slack.com/apps) -> Create New App
-- From an app manifest
-- Select the workplace You wish to use
-- Paste in the following manifest and create the app:
+2. Create a [Slack App](https://api.slack.com/apps)
+    - Create New App
+    <img src="/images/slack/create_app.png" />
+    - From an app manifest
+    - Select the workplace You wish to use
+    - Paste in the following manifest and create the app, don't modify the manifest, we will get to it later
 ```
 {
     "display_information": {
@@ -50,10 +54,18 @@ title: 'Slack Integration'
 }
 ```
 3. Click: "Install to workplace" -> "Allow"
+<img src="/images/slack/install_to_workplace.png" />
 4. Add OpenAI API key to Replit -> Secrets -> OPENAI_API_KEY
-5. Add the signing secret from Slack App credentials -> "Signing Secret" as an environment variable to Replit -> Secrets -> SLACK_SIGNING_SECRET
+<img src="/images/slack/replit_secrets.png" />
+5. Add the signing secret from Slack App credentials -> "Signing Secret" (scroll down on the same page where "Install to workplace" was) as an environment variable to Replit -> Secrets -> SLACK_SIGNING_SECRET
+<img src="/images/slack/slack_signing_secret.png" />
 6. Go to Slack "Settings" -> "Install App" (left sidebar) -> "Bot User OAuth Token" and copy the value and add to Replit -> Secrets -> SLACK_BOT_TOKEN
-7. Run the App in Replit (add whatever data You wish to the app). To keep the slack bot working constantly, You will need to enable "Always On" in the settings in the top left.
+<img src="/images/slack/slack_token.png" />
+7. Run the App in Replit (add whatever data You wish to the app). To keep the slack bot working constantly,
+You will need to enable "Always On" in the settings in the top left (this requires having a subscription).
+<img src="/images/slack/replit_deploy.png" />
 8. Go to Slack App settings -> "Event Subscriptions" (left sidebar) and replace YOUR_DEPLOYMENT_URL with the url of your replit deployment (make sure to keep the /slack/events in the URL) - once its verified, save the changes
-9. Go to Slack App settings -> "App Home" (left sidebar) enable "Messages Tab"
-10. Message your Bot on Slack and get a response!
+<img src="/images/slack/slack_url.png" />
+9. OPTIONAL, if you wish to be able to message privately to the bot: Go to Slack App settings -> "App Home" (left sidebar) enable "Messages Tab".
+10. OPTIONAL, if you wish to talk to the bot in a channel: Add your bot to some Slack channel.
+11. Message your Bot on Slack and get a response! The bot will respond to any message where you tag it in a channel where its in.
