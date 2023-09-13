@@ -4,53 +4,51 @@ title: 'Configuration'
 
 There are many things you can optionally configure in OpenCopilot. To change those, pass in the relevant argument to the `OpenCopilot()` initializer.
 
-1. Basic Configuration
+### 1. Basic Configuration
 
-* `prompt` / `prompt_file`: Define the system prompt. Use prompt to pass a string, or prompt_file to specify a path to a prompt file.
-* `openai_api_key`:  OpenAI API key. Used for making LLM and embedding calls if chosen LLM is OpenAI
+* `prompt` / `prompt_file`: Define the system prompt. Use `prompt` to pass a string as prompt, or `prompt_file` to specify a path to a prompt file.
+* `openai_api_key`:  OpenAI API key. Used for making LLM and embedding calls if chosen LLM is OpenAI.
 * `copilot_name`: Name your copilot. Different names will save the state separately. Default: "default".
 
-2. Messaging Templates
+### 2. Messaging Templates
 
-* `question_template`: A template used to identify and label where a message comes from in a back-and-forth conversation. Default: "### Human: {question}"
-* `response_template`: A template used to identify and label where a message comes from in a back-and-forth conversation. Default: "### Assistant: {response}"
+* `question_template`: A template used to identify and label where a message comes from in a back-and-forth conversation. Default: `### Human: {question}`
+* `response_template`: A template used to identify and label where a message comes from in a back-and-forth conversation. Default: `### Assistant: {response}`
 
-3. Network Settings
+### 3. Network Settings
 
-* `host`: Bind socket to this host. Default: "127.0.0.1".
-* `api_port`: Define the socket port. Default: 3000.
+* `host`: Bind socket to this host. Default: `127.0.0.1`.
+* `api_port`: Define the socket port. Default: `3000`.
 
-4. Environment and Permissions
+### 4. Environment and Permissions
 
-* `environment`: Specify the environment, e.g., production or development. Default: "local".
-* `allowed_origins`: Set which origins can access the response. Default: "*"
+* `environment`: Specify the environment, e.g., production or development. Default: `local`.
+* `allowed_origins`: Set which origins can access the response. Default: `*`
 
-5. Knowledge Base Configuration
+### 5. Knowledge Base Configuration
 
-* `weaviate_url`: The URL of the Weaviate vector store that will be used for the [Knowledge base](/create/knowledge-base). If no url is provided copilot will start an embedded Weaviate. Default: None.
-* `weaviate_read_timeout`: Maximum wait time for a vector store query. Default: 120 seconds.
+* `weaviate_url`: The URL of the Weaviate vector store that will be used for the [Knowledge base](/create/knowledge-base). If `None`, the copilot will start an embedded Weaviate vector store. Default: `None`.
+* `weaviate_read_timeout`: Maximum wait time for a vector store query, in seconds. Default: `120`.
 
-6. Model Settings
+### 6. Model Settings
 
-* `llm`: ChooseDefines what LLM the copilot will use. It can be an OpenAI LLM as a string ["gpt-3.5-turbo-16k" or "gpt-4"] or an instance of BaseChatModel. Default: "gpt-3.5-turbo-16k"
-* `embedding_model`: Select the embedding model. It can be an OpenAI string model or an instance of Embeddings. Default: "text-embedding-ada-002"
-* `max_document_size_mb`: Maximum document size for ingestion. Default: 50.
+* `llm`: Determines what LLM the copilot will use. Can be either an OpenAI LLM name as a string (`gpt-3.5-turbo-16k` or `gpt-4`) or an instance of `langchain.chat_models.base.BaseChatModel`. Default: `gpt-3.5-turbo-16k`.
+* `embedding_model`: Determines what embedding model the copilot will use. Can be either an OpenAI embedding model name as a string (like `text-embedding-ada-002`) or an instance of `langchain.embeddings.base.Embeddings`. Default: `text-embedding-ada-002`.
+* `max_document_size_mb`: Maximum document size accepted for ingestion, in MB. Default: 50.
 
-7. Authentication and Security
+### 7. Authentication and Security
 
-* `auth_type`: Choose the authentication method for REST API calls. Options: "JWT", "API_KEY", None. Depending on your choice, you might need to provide additional parameters:
-    * For "API_KEY": `api_key`
-    * For "JWT":
+* `auth_type`: Choose the authentication method for REST API calls. Options: `JWT`, `API_KEY`, or `None`. Depending on your choice, you need to provide additional parameters:
+    * For `auth_type="API_KEY"`, provide the `api_key` parameter. This string can then be used to authenticate when calling the REST API.
+    * For `JWT` (JSON Web Token) authentication, provide the following parameters:
         * `jwt_client_id`
         * `jwt_client_secret`
-        * `jwt_token_expiration_seconds`: specify how long the JWT token is valid for. Default: 1 day.
+        * `jwt_token_expiration_seconds`: specifies how long the JWT token is valid for. Default: 1 day.
 
-8. Monitoring and Logging
+### 8. Monitoring and Logging
 
 * `helicone_api_key`: [Helicone](https://www.helicone.ai/) API key. Used for [Monitoring](/integrate/monitoring).
-* `helicone_rate_limit_policy`: Implement rate limiting to ensure fair resource usage.
-* `log_level`: Default python logging module log level. Documentation [here](https://docs.python.org/3/library/logging.html#levels)
-
-For an exhaustive list of configurations and detailed method implementations, visit the OpenCopilot GitHub page.
+* `helicone_rate_limit_policy`: If Helicone is enabled, implements a rate limiting policy to ensure fair resource usage - see [Helicone rate limiting docs](https://docs.helicone.ai/features/advanced-usage/custom-rate-limits).
+* `log_level`: Default Python `logging` module log level. See docs [here](https://docs.python.org/3/library/logging.html#levels)
 
 To see the full and up-to-date list, see the `OpenCopilot` class initializer and method implementations on the [OpenCopilot Github](https://github.com/opencopilotdev/opencopilot/blob/main/opencopilot/application.py).
