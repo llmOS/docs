@@ -54,7 +54,7 @@
     },
     {
       "group": "Integrate your copilot",
-      "pages": ["integrate/configuration", "integrate/front-end", "integrate/rest-api", "integrate/deploy", "integrate/monitoring"]
+      "pages": ["integrate/configuration", "integrate/front-end", "integrate/rest-api", "integrate/deploy", "integrate/monitoring", "integrate/slack"]
     }
   ],
   "footerSocials": {
