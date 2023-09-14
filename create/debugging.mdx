@@ -49,15 +49,9 @@ You can also combine these options.
 
 ### Debugging with debug view
 
-First, you need to enable the debug view by running the [front-end application](/welcome/getting-started#optional-front-end) with the right flag. In the front-end directory, edit the `.env` file to set the following flag:
+Open the frontend http://localhost:3000/ui (replace with the URL and PORT you are using).
 
-```bash
-NEXT_PUBLIC_DEBUG_ENABLED="true"
-```
-
-Then, restart the front-end application.
-
-There are two ways to open the debug view once enabled:
+There are two ways to open the debug view:
 
 1. "Debug" button in the top right corner of the screen will open or close the debugging sidebar.
 2. A bug icon next to a copilot response will take you to the debug view of that message.
@@ -85,4 +79,4 @@ For example, here's a debug view of the prompt template:
 ...and here's a debug view of the retrieved documents:
 <img src="/create/debugging_images/debug_view_retrieved_docs.png" />
 
-We recommend keeping the debug view enabled while you're developing your copilot. It will help you understand what's going on under the hood, and tell you whether you should be improving the [prompt](/create/prompting), adding documents to the [knowledge base](/create/knowledge-base), or anything else.
+We recommend keeping an eye on the debug view while you're developing your copilot. It will help you understand what's going on under the hood, and tell you whether you should be improving the [prompt](/create/prompting), adding documents to the [knowledge base](/create/knowledge-base), or anything else.
