@@ -2,7 +2,7 @@
 title: "Prompting"
 ---
 
-![Prompt Meme](/images/prompt_meme.png)
+<img height="200" src="/images/prompt_meme.png" />
 
 Crafting a meta prompt effectively defines your copilot's role and behavior. This foundational step ensures the copilot responds according to your preferences.
 
@@ -109,5 +109,43 @@ copilot = OpenCopilot(
 ```
 
 Modify the prompt or its source as needed, then execute `python copilot.py`.
+
+## Using the CLI to Generate Prompts
+
+For those looking for a streamlined process to craft initial prompts, OpenCopilot provides a Command-Line Interface (CLI) tool. This tool auto-generates prompts based on a simple description you provide, making it a fantastic starting point.
+
+### How to Use the CLI for Prompt Generation:
+
+To use the tool, follow the structure below:
+
+```bash
+opencopilot prompt [OPTIONS] DESCRIPTION
+```
+
+**Example:**
+
+```bash
+opencopilot prompt 'Copilot for teaching children mathematics'
+```
+
+The above command will generate a prompt tailored for teaching math to kids.
+
+### Arguments:
+
+- `description`: This is the copilot's description. It's a mandatory argument that informs the nature of the prompt. For instance, "Copilot for teaching children mathematics."
+
+### Options:
+
+- `--model`: This option lets you specify the model for which the prompt should be tailored. Available choices are `gpt` (default) and `llama2`.
+  
+  Example:
+  
+  ```bash
+  opencopilot prompt 'Copilot for teaching children mathematics' --model llama2
+  ```
+
+- `--help`: Provides the help message detailing the command's usage.
+
+Remember, while the CLI is a great way to kickstart your prompt creation, it's always beneficial to refine and iterate on the generated prompt to perfectly suit your use case.
 
 The next step? Enhancing your copilot's knowledge base with custom data.
