@@ -48,9 +48,9 @@ docker-compose up --build
 <img src="/images/docker_stack.png" />
 
 * docker-compose.yml defines all the containers and their connections. See more in `docker_deployment/docker-compose.yml`.
-* Copilot is packaged in Docker container. See more in `docker/copilot`
-* Frontend is running inside the Copilot Docker container on path `/ui`.
-* Nginx is in front of the python Rest API and the frontend. See more in `docker/nginx`
+* Copilot is packaged in Docker container and is exposed as Rest API. See more in `docker/copilot`
+* Frontend is running inside the Copilot Docker container Rest API on path `/ui`.
+* Nginx is in front of the Copilot Rest API and the frontend. See more in `docker/nginx`
 * Weaviate vector store is running in separate docker container to support storing data.
 
 ### Suggestions
