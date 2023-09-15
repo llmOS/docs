@@ -47,18 +47,19 @@ docker-compose up --build
 
 <img src="/images/docker_stack.png" />
 
-* docker-compose.yml defines all the containers and their connections. See more in `docker_deployment/docker-compose.yml`
+* docker-compose.yml defines all the containers and their connections. See more in `docker_deployment/docker-compose.yml`.
 * Copilot is packaged in Docker container. See more in `docker/copilot`
-* Nginx is in front of the python Rest API. See more in `docker/nginx`
-* Weaviate vector store is running in separate docker container to support storing data
-* Frontend is running in separate docker container
+* Frontend is running inside the Copilot Docker container on path `/ui`.
+* Nginx is in front of the python Rest API and the frontend. See more in `docker/nginx`
+* Weaviate vector store is running in separate docker container to support storing data.
 
 ### Suggestions
 
-* You can run frontend in a separate machine. Just extract the frontend part from docker-compose
-* You can run nginx or frontend on different ports. For example to run nginx on port 5000 change in docker-compose:
+* You can run frontend separately as well. The open-source repository is [here](https://github.com/opencopilotdev/frontend-library). Or you can just run in a simple HTML by embedding the chat, example [here](https://github.com/opencopilotdev/frontend-library/blob/master/embed.html)
+* You can run nginx on different ports For example to run nginx on port 5000 change in docker-compose:
 
 ```yaml
+  nginx:
     ports:
       - "5000:80"
 ```
