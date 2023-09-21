@@ -4,30 +4,20 @@ title: "Prompting"
 
 <img height="200" src="/images/prompt_meme.png" />
 
+Crafting a meta prompt effectively defines your copilot's role and behavior. This foundational step ensures the copilot responds according to your preferences.
 
-**Writing a meta prompt is the first impactful step in creating a custom copilot**.
-In the meta prompt, you instruct your copilot about its goals, behaviour, communication style, etc. 
-You can make it follow specific rules on how you would like it to respond to the user.
+## Crafting a Meta Prompt
 
+**Iterate**! Your first attempt doesn't need to be perfect.
 
-## Writing a meta prompt
+### Key Points:
+1. Define the copilot's purpose and expected behavior. Browse [examples](https://github.com/opencopilotdev/opencopilot/blob/main/examples) for inspiration.
+2. Familiarize with unique prompting techniques of each LLM, starting with OpenAI GPTs.
+3. Begin by modifying an [example](https://github.com/opencopilotdev/opencopilot/blob/main/examples) prompt.
+4. Begin simply, then refine to match your use case.
+5. A lengthy prompt might hamper the LLM's performance.
 
-Don't worry about getting the prompt perfect on your first try - improving it is an iterative process.
-
-### Things to consider
-
-1. Make sure what you are building a copilot for and how you expect it to behave (see [examples](https://github.com/opencopilotdev/opencopilot/blob/main/examples) to get inspired)
-2. Every LLM has a unique purpose and prompting technique (e.g. GPT-4 vs Llama-13B) - we recommend starting with OpenAI GPTs
-3. At first, it is easier to start editing an [example](https://github.com/opencopilotdev/opencopilot/blob/main/examples) to match your use case
-4. Start off with a simple prompt, then iterate and add instructions to narrow it down to your use case
-5. More text doesn't always make it better -> overloading the LLM with prompts can also decrease it's performance
-
-### 1st prompt iteration
-
-Following is a very simple meta prompt for an E-Commerce Copilot (good for GPT-3.5 & 4). Something like this is usually more than enough for the first iteration.
-You can see it describing:
-* who does the copilot portray itself as
-* what is the copilot supposed to do
+### Example:
 
 ```text
 You are an E-Commerce Copilot, an AI assistant for entrepeneurs selling products on their online shops.
@@ -42,38 +32,28 @@ User: {question}
 E-Commerce Copilot answer in Markdown:
 ```
 
-### Prompt file structure
+### Prompt Structure:
 
-The prompt is not a static piece of text. It is a template that is dynamically **filled at runtime**.
-This way the copilot is aware of real-time information unique to the interaction, hence you should always place three template variables into the prompt file (ideally at the end),
-and they will be substituted as follows:
+The prompt, dynamically filled during runtime, should contain:
 
-* `{context}`: the most relevant documents retrieved from your knowledge base (more on this later).
-* `{history}`: the conversation history between the user and the copilot.
-* `{question}`: the most recent input from the user -- the message they just sent.
+- `{context}`: Relevant documents from your knowledge base.
+- `{history}`: The conversation's history.
+- `{question}`: The user's most recent query.
 
-**Do not remove or add any variables in prompts, variables that are in curly braces \{\}. (For example: \{context\})**
+Do not modify or omit these variables.
 
-## Improving the meta prompt
+## Refining the Meta Prompt
 
-There aren't many hard rules to prompting, but making the process iterative and monitoring it's behaviour is necessary to build a good copilot.
+Improvement hinges on iteration and monitoring.
 
-### 2nd and 3rd prompt iteration
-
-More on evaluation later, but nr 1 rule of developing a copilot is actually [chatting](/welcome/getting-started#4-chat-with-the-copilot) with it and seeing if the changes improve it or not.
-When you feel it is not quite there yet, it can be narrowed down to act more specifically for your use case by adding to the prompt, for example:
-* what is it's mission
-* restrictions on what not to do
-* what it can use to reply to the user
-* how to act in case of... with concrete examples
+1. Chat with your copilot to judge its efficiency.
+2. Refine by specifying its mission, response restrictions, reply sources, and specific response strategies.
 
 ```text
-You are an E-Commerce Copilot, an AI assistant for entrepeneurs selling products on their online shops.
-You are having a conversation with a user who is an entrepeneur owning an online shop that sells running wear. 
-Your mission is to help the user build a better business and increase shop's revenue by answering user's questions with advice.
-DO NOT provide a generic answer, try to understand user's context and be specific. 
-You are given the context to answer each question below.
-If the question is too generic, for example "How to make money?" ask user to be more specific to his or her shop.
+You are an E-Commerce Copilot, assisting online entrepreneurs.
+You're conversing with an online running wear shop owner.
+Aid them in enhancing business and revenue through advice. Always contextualize your answers.
+If faced with vague queries like "How to make money?", seek specific details.
 
 =========
 {context}
@@ -83,18 +63,15 @@ If the question is too generic, for example "How to make money?" ask user to be 
 User: {question}
 E-Commerce Copilot answer in Markdown:
 ```
-Creating a production-ready meta prompt is like fine tuning a model. Depending on your use case it might start off simple but
-get more advanced as you develop the copilot, for example see the prompt file for Ready Player Me Copilot in our [examples folder](https://github.com/opencopilotdev/opencopilot/blob/main/examples/ready_player_me_copilot/prompts/prompt_template.txt).
 
-Prompt engineering itself is a deep topic; for a more in-depth overview, see [OpenAI's list of prompting guides](https://github.com/openai/openai-cookbook#prompting-guides). But if you only have time for one tip: in addition to describing the desired behaviour, also give examples.
+Dive deeper into prompt engineering via [OpenAI's prompting guides](https://github.com/openai/openai-cookbook#prompting-guides). Always iterate: **modify -> interact -> refine**.
 
-The third (and fourth, etc.) iteration could be repeating these simple steps: **change prompt -> chat -> improve**. Until you get the copilot to behave as you expected. **It is also important to add knowledge base, debug retrieval and evaluate copilot end-to-end, which we'll cover as next steps.**
+## Implementing the Meta Prompt
 
-## Using the meta prompt
+You can input the meta prompt as a `String` or from a `.txt` file in the copilot Python script.
 
-A meta prompt can be used as a `String` in the copilot python file or imported as `.txt` file.
+### Direct String Implementation:
 
-### Using the meta prompt as a String
 ```python
 from opencopilot import OpenCopilot
 
@@ -119,11 +96,10 @@ copilot = OpenCopilot(
 copilot()
 ```
 
-### Using the meta prompt from a text file
+### Using a `.txt` File:
 
-Simply create a `.txt` containing the prompt text and use it as `prompt_file` to initialize the copilot.
-Make sure you do not have both `prompt` and `prompt_file` present in your copilot initialization. 
-It would look like somthing this:
+Just reference the prompt text file using `prompt_file` during copilot initialization. Avoid using both `prompt` and `prompt_file`.
+
 ```python
 copilot = OpenCopilot(
     openai_api_key="your-openai-api-key",
@@ -132,6 +108,44 @@ copilot = OpenCopilot(
     )
 ```
 
-When changing the meta prompt source or the prompt itself in the Python file, re-run the copilot with `python copilot.py`.
+Modify the prompt or its source as needed, then execute `python copilot.py`.
 
-Now let's go and add custom data to your copilot's knowledge base, this a natural next step in the building phase. 
+## Using the CLI to Generate Prompts
+
+For those looking for a streamlined process to craft initial prompts, OpenCopilot provides a Command-Line Interface (CLI) tool. This tool auto-generates prompts based on a simple description you provide, making it a fantastic starting point.
+
+### How to Use the CLI for Prompt Generation:
+
+To use the tool, follow the structure below:
+
+```bash
+opencopilot prompt [OPTIONS] DESCRIPTION
+```
+
+**Example:**
+
+```bash
+opencopilot prompt 'Copilot for teaching children mathematics'
+```
+
+The above command will generate a prompt tailored for teaching math to kids.
+
+### Arguments:
+
+- `description`: This is the copilot's description. It's a mandatory argument that informs the nature of the prompt. For instance, "Copilot for teaching children mathematics."
+
+### Options:
+
+- `--model`: This option lets you specify the model for which the prompt should be tailored. Available choices are `gpt` (default) and `llama2`.
+  
+  Example:
+  
+  ```bash
+  opencopilot prompt 'Copilot for teaching children mathematics' --model llama2
+  ```
+
+- `--help`: Provides the help message detailing the command's usage.
+
+Remember, while the CLI is a great way to kickstart your prompt creation, it's always beneficial to refine and iterate on the generated prompt to perfectly suit your use case.
+
+The next step? Enhancing your copilot's knowledge base with custom data.
