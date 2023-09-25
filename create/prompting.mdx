@@ -10,14 +10,14 @@ Crafting a meta prompt effectively defines your copilot's role and behavior. Thi
 
 **Iterate**! Your first attempt doesn't need to be perfect.
 
-### Key Points:
+### Key Points
 1. Define the copilot's purpose and expected behavior. Browse [examples](https://github.com/opencopilotdev/opencopilot/blob/main/examples) for inspiration.
 2. Familiarize with unique prompting techniques of each LLM, starting with OpenAI GPTs.
 3. Begin by modifying an [example](https://github.com/opencopilotdev/opencopilot/blob/main/examples) prompt.
 4. Begin simply, then refine to match your use case.
 5. A lengthy prompt might hamper the LLM's performance.
 
-### Example:
+### Example
 
 ```text
 You are an E-Commerce Copilot, an AI assistant for entrepeneurs selling products on their online shops.
@@ -32,7 +32,7 @@ User: {question}
 E-Commerce Copilot answer in Markdown:
 ```
 
-### Prompt Structure:
+### Prompt Structure
 
 The prompt, dynamically filled during runtime, should contain:
 
@@ -96,7 +96,7 @@ copilot = OpenCopilot(
 copilot()
 ```
 
-### Using a `.txt` File:
+### Using a `.txt` File
 
 Just reference the prompt text file using `prompt_file` during copilot initialization. Avoid using both `prompt` and `prompt_file`.
 
@@ -114,7 +114,7 @@ Modify the prompt or its source as needed, then execute `python copilot.py`.
 
 For those looking for a streamlined process to craft initial prompts, OpenCopilot provides a Command-Line Interface (CLI) tool. This tool auto-generates prompts based on a simple description you provide, making it a fantastic starting point.
 
-### How to Use the CLI for Prompt Generation:
+### How to Use the CLI for Prompt Generation
 
 To use the tool, follow the structure below:
 
@@ -130,11 +130,11 @@ opencopilot prompt 'Copilot for teaching children mathematics'
 
 The above command will generate a prompt tailored for teaching math to kids.
 
-### Arguments:
+### Arguments
 
 - `description`: This is the copilot's description. It's a mandatory argument that informs the nature of the prompt. For instance, "Copilot for teaching children mathematics."
 
-### Options:
+### Options
 
 - `--model`: This option lets you specify the model for which the prompt should be tailored. Available choices are `gpt` (default) and `llama2`.
   
