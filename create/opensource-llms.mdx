@@ -5,7 +5,7 @@ title: "Working with Open Source Large Language Models"
 
 OpenCopilot CLI includes a helpful `oss` command that help you choose, setup and run an Open Source LLM locally.
 
-### Prerequisites
+## Prerequisites
 
 OpenCopilot's Open Source LLM support is based on `llama.cpp` therefore it requires `llama-cpp-python` library to work:
 
@@ -26,30 +26,46 @@ CMAKE_ARGS="-DLLAMA_METAL=on" pip install llama-cpp-python
 Check out [llama-cpp-python macOS installation guide](https://llama-cpp-python.readthedocs.io/en/latest/install/macos/) for details.
 
 
-### Choosing an LLM
+## Available LLMs
 
-To see a list of all the models available:
+Here is a comprehensive list of all the open-source large language models supported by OpenCopilot:
+
+| Model Name        | System Requirements      | License | Parameters Count | File Size | Description |
+|-------------------|--------------------------|---------|------------------|-----------|-------------|
+| Llama-2-7b-chat   | Requires at least 8GB of RAM* | [Free for research and commercial use](https://github.com/facebookresearch/llama/blob/main/LICENSE) | 7 billion | 3.83 GB | Meta developed and publicly released the Llama 2 family of large language models (LLMs) optimized for dialogue use cases. |
+| Llama-2-13b-chat  | Requires at least 16GB of RAM* | [Free for research and commercial use](https://github.com/facebookresearch/llama/blob/main/LICENSE) | 13 billion | 7.37 GB | Meta developed and publicly released the Llama 2 family of LLMs optimized for dialogue use cases. |
+| Llama-2-70b-chat  | Requires at least 64GB of RAM* | [Free for research and commercial use](https://github.com/facebookresearch/llama/blob/main/LICENSE) | 70 billion | 38.9 GB | Meta developed and publicly released the Llama 2 family of LLMs optimized for dialogue use cases. |
+| CodeLlama-7b      | Requires at least 8GB of RAM* | [Free for research and commercial use](https://github.com/facebookresearch/codellama/blob/main/LICENSE) | 7 billion | 3.83 GB | Pretrained and fine-tuned generative text models designed for general code synthesis and understanding. |
+| CodeLlama-13b     | Requires at least 16GB of RAM* | [Free for research and commercial use](https://github.com/facebookresearch/codellama/blob/main/LICENSE) | 13 billion | 7.37 GB | Pretrained and fine-tuned generative text models designed for general code synthesis and understanding. |
+| CodeLlama-34b     | Requires at least 64GB of RAM* | [Free for research and commercial use](https://github.com/facebookresearch/codellama/blob/main/LICENSE) | 34 billion | 19.1 GB | Pretrained and fine-tuned generative text models designed for general code synthesis and understanding. |
+
+\* Hardware acceleration is highly recommended for optimal performance. Refer to the [LLAMA CPP Python documentation](https://llama-cpp-python.readthedocs.io/en/latest/#installation-with-hardware-acceleration) for guidance on how to enable it.
+
+
+## Selecting the Right LLM for Your System
+
+The OpenCopilot CLI offers a convenient way to display all available models and highlights those that are best suited for your specific system setup.
+
+To fetch a list of models, simply run:
+
 ```bash
 # opencopilot oss list
-┏━━━┳━━━━━━━━━━━━━━━━━━┳━━━━━━━━┳━━━━━━━━━━━┓
+┏━━━┳━━━━━━━━━━━━━━━━━┳━━━━━━━━┳━━━━━━━━━━━┓
 ┃   ┃ NAME             ┃ SIZE   ┃ INSTALLED ┃
-┡━━━╇━━━━━━━━━━━━━━━━━━╇━━━━━━━━╇━━━━━━━━━━━┩
+┡━━━╇━━━━━━━━━━━━━━━━━╇━━━━━━━━╇━━━━━━━━━━━┩
 │ * │ Llama-2-7b-chat  │ 3.83GB │ Yes       │
 │ * │ Llama-2-13b-chat │ 7.37GB │ Yes       │
 │   │ Llama-2-70b-chat │ 38.9GB │ No        │
 │ * │ CodeLlama-7b     │ 3.83GB │ No        │
 │ * │ CodeLlama-13b    │ 7.37GB │ No        │
 │   │ CodeLlama-34b    │ 19.1GB │ No        │
-└───┴──────────────────┴────────┴───────────┘
-
-* Recommended for your system
-
-To see more details about a model: opencopilot oss info <model_name>
-
+└───┴──────────────┴───────┴─────────┘
 ```
-Models marked with an asterisk are recommended ones based on your system performance (RAM, GPU,...)
+Models that have an asterisk (*) next to them are recommended based on your system's capabilities (e.g., RAM, GPU). This helps ensure optimal performance and user experience.
 
-### LLM model details
+To delve into more specific details about a particular model, use: `opencopilot oss info <model_name>`.
+
+## LLM model details
 
 To see model details:
 ```bash
@@ -59,7 +75,7 @@ Model Name:   Llama-2-13b-chat
  Description:  Meta developed and publicly released the Llama 2 family of large language models (LLMs), a collection of pretrained and fine-tuned generative text models ranging in scale from 7 billion to 70 billion parameters. Fine-tuned LLMs, called Llama-2-Chat, are optimized for dialogue use cases. 
 ```
 
-### Running an LLM
+## Running an LLM
 
 To use a certain LLM:
 ```bash
@@ -104,7 +120,7 @@ copilot()
 Note that to run this example, **you need to also install sentence-transformers** with `pip install sentence_transformers` because we are using a local embeddings model.
 
 
-### Generating a Model-Specific Prompt Template
+## Generating a Model-Specific Prompt Template
 
 Different language models might have different strengths, specializations, or recommended use-cases. 
 To generate a prompt template tailored to a specific model, you can use the generate_prompt command followed by the model's name:
@@ -121,7 +137,7 @@ Context:
 {history} Repeat: {question} [/INST]
 ```
 
-### Removing an LLM
+## Removing an LLM
 
 Allows users to remove a model if they no longer need it to save space:
 ```bash
