@@ -1,0 +1,238 @@
+---
+title: "Build a developer tooling copilot"
+---
+
+<img height="200" src="/images/tutorial/rpm-copilot.png" />
+
+### Introduction
+
+In this tutorial, we’ll show how Ready Player Me built a developer tooling copilot (above) using OpenCopilot. **Ready Player Me is the leading avatar tooling platform used by more than 10,000 game developers.**
+
+The new copilot feature is Ready Player Me’s latest effort to help developers save time by assisting them in integrating the character creator and launching their apps faster. It will have all the necessary knowledge drawn from Ready Player Me’s developer documentation making developers more efficient and reducing the time they spend fixing errors or thinking of custom solutions.
+
+### Prerequisites
+
+- **Suggestion:** use [conda](https://docs.conda.io/projects/conda/en/latest/user-guide/install/download.html) or other Python environment
+- **Python 3.8+** and **pip** installed
+
+### 1. Copilot set up
+
+Install the OpenCopilot Python library by running the following command in your terminal:
+    
+```bash
+pip install opencopilot-ai
+```
+    
+
+Create the bare minimum copilot Python file, for example `copilot.py` with the following code, **make sure to include your OpenAI API key and give your copilot a name**:
+    
+```python
+from opencopilot import OpenCopilot
+
+# Initialize the copilot
+copilot = OpenCopilot(
+    openai_api_key="your-openai-api-key",
+    copilot_name="Ready Player Me Copilot",
+    prompt=PROMPT
+)
+
+# Run the copilot
+copilot()
+```
+    
+
+Now let’s add the first version of prompt to the copilot, it’s pretty basic, but we’ll customize it more later:
+    
+```python
+from opencopilot import OpenCopilot
+
+PROMPT = """
+You are a developer copilot for Ready Player Me.
+
+Context: {context}
+
+{history}
+User: {question}
+Ready Player Me Copilot answer in Markdown:
+"""
+
+# Initialize the copilot
+copilot = OpenCopilot(
+    openai_api_key="your-openai-api-key",
+    copilot_name="Ready Player Me Copilot",
+    prompt=PROMPT
+)
+
+# Run the copilot
+copilot()
+```
+    
+**What exactly does this prompt do?**
+- The prompt describes the copilot’s behaviour, limits and provides specific instructions.
+- In run-time `{context}` will be replaced by vector search result from the developer documents - this is not used yet and will be discussed later in this tutorial.
+- `{history}` will be replaced by conversation history to give copilot memory about the conversation and `{question}` will be replaced by the latest user message to the copilot.
+- NB! All the variables in `{}` have to be present in the prompt even if not used.
+
+Now let’s run the copilot using command-line. Run `python copilot.py` in the same repository as the Python file. If successful, the terminal should print out the following:
+    
+<img height="200" src="/images/tutorial/run-terminal.png" />    
+
+**The initial set up is done!** Out of the box chat UI helps you chat and test the copilot immediately: [http://127.0.0.1:3000/ui](http://127.0.0.1:3000/ui)
+    
+<img height="200" src="/images/tutorial/copilot-1.png" />
+    
+
+The default LLM is OpenAI’s GPT-3.5, which seems to already have some generic knowledge about 'Ready Player Me.' While this might look good at first glance, it isn't actually helpful for developers. Let's compare it to the production-ready RPM Copilot (as shown in the right image):
+
+<img height="200" src="/images/tutorial/compare-1.png" />
+
+1. Our current solution most likely has some amount of hallucination in the generation - the LLM has some knowledge of Ready Player Me, but cannot generate a specific response
+2. Since `gpt3.5` and `gpt4` are trained on pre 2021 data, the copilot is not aware of the recent changes to Ready Player Me’s product or documentation, making the information provided useless
+3. Without much prompting done it spits out the answer right away without trying to understand what is actually relevant to the developer’s use case - what environment is the dev in, etc.
+
+Follow the next steps to improve the copilot by adding knowledge base (RPM’s documentation) to the copilot using retrieval augmented generation (RAG) and prompt engineering.
+
+### 2. Copilot customization
+
+#### Adding knowledge base
+
+To anchor the copilot to a knowledge base, add RPM developer documentation. This equips it with the latest updates to answer devs' questions.
+
+We’ll use LangChain’s GitbookLoader to scrape data from the RPM developer docs. For this please install LangChain Python library:
+    
+```bash
+pip install langchain
+```
+    
+
+Now import additional libraries and add custom data loader functionality using `@copilot.data_loader` decorator. This will handle embedding and loading the data to vector store.
+    
+```python
+from typing import List
+from opencopilot import OpenCopilot
+from langchain.document_loaders import GitbookLoader
+from langchain.schema import Document
+
+PROMPT = """
+You are a developer copilot for Ready Player Me.
+
+Context: {context}
+
+{history}
+User: {question}
+Ready Player Me Copilot answer in Markdown:
+"""
+
+# Initialize the copilot
+copilot = OpenCopilot(
+    openai_api_key="your-openai-api-key",
+    copilot_name="Ready Player Me Copilot",
+        prompt=PROMPT
+)
+
+# Custom data loader using LangChain GitBookLoader
+@copilot.data_loader
+def load_gitbook() -> List[Document]:
+        docs_url = "https://docs.readyplayer.me/ready-player-me/"
+    loader = GitbookLoader(docs_url, load_all_paths=True)
+    documents = loader.load()
+    return documents
+
+# Run the copilot
+copilot()
+```
+    
+At run-time, RAG provides context to the copilot. {context} substitutes with data from the vector store before LLM processing, ensuring relevant knowledge from docs for replies
+
+**Restart the copilot to see if it improved the output:**
+
+<img height="200" src="/images/tutorial/compare-2.png" />
+
+Much closer now! Updated with Ready Player Me's latest docs, the copilot recognizes custom needs. Thanks to RAG, the chat UI's "debug mode" reveals the crucial data retrieved and contextualized for the final response:
+
+<img height="200" src="/images/tutorial/RAG.png" />
+
+#### Prompt engineering
+
+Prompting is a powerful tool that developers generally underestimate. Let’s compare our current prompt to the [production-ready RPM copilot prompt](https://github.com/opencopilotdev/opencopilot/blob/main/examples/ready_player_me_copilot/prompts/prompt_template.txt):
+
+<img height="200" src="/images/tutorial/prompts.png" />
+
+Don't be daunted; prompts aren't typically written in one go:
+1. Writing prompts is iterative; adjust, add and test repeatedly.
+2. Good practise is to begin with a detailed description about the copilot persona, explaining role and objectives. **Luckily this can be done automatically:**
+- In a separate terminal run: `opencopilot prompt "developer copilot for Ready Player Me”` and paste the output to your copilot prompt.
+
+<img height="200" src="/images/tutorial/CLI.png" />
+
+- While the CLI tool generates an excellent prompt about the persona, it does not provide you with custom instructions out of the box. Instructions teach copilot to respond or act in certain way, e.g. always provide 3 follow-up questions.
+
+**Let’s also add two instructions to the prompt, before {context} and after the persona description:**
+
+_”As context to reply to the user you are given the following extracted parts of a long document, previous chat history, and a question from the user."_
+
+_"REMEMBER to always provide 3 example follow up questions that would be helpful for the user to continue the conversation.”_
+    
+**Now the final copilot with the full prompt looks like this:**
+
+```python
+from typing import List
+from opencopilot import OpenCopilot
+from langchain.document_loaders import GitbookLoader
+from langchain.schema import Document
+
+PROMPT = """
+You are a Developer Copilot for Ready Player Me, a platform that provides customizable avatar solutions for virtual reality and gaming applications. Your mission is to assist developers in integrating and optimizing Ready Player Me's avatar creation and customization features into their applications. You have expertise in working with avatar APIs, SDKs, and documentation provided by Ready Player Me. You can provide guidance on avatar creation, customization options, and integration best practices. Your goal is to empower developers to enhance their applications with immersive and personalized avatar experiences. You are knowledgeable about virtual reality technologies, gaming platforms, and user experience design principles. You are a problem-solver, detail-oriented, and dedicated to helping developers create engaging and visually appealing avatar systems that enhance user immersion and enjoyment. Your superpower is simplifying complex avatar integration processes and ensuring a seamless user experience.
+
+As context to reply to the user you are given the following extracted parts of a long document, previous chat history, and a question from the user.
+
+REMEMBER to always provide 3 example follow up questions that would be helpful for the user to continue the conversation.
+
+=========
+
+{context}
+=========
+
+{history}
+User: {question}
+Copilot answer in Markdown:
+"""
+
+# Initialize the copilot
+copilot = OpenCopilot(
+    openai_api_key="your-openai-api-key",
+    copilot_name="Ready Player Me Copilot",
+		prompt=PROMPT
+)
+
+# Custom data loader using LangChain GitBookLoader
+@copilot.data_loader
+def load_gitbook() -> List[Document]:
+		docs_url = "https://docs.readyplayer.me/ready-player-me/"
+    loader = GitbookLoader(docs_url, load_all_paths=True)
+    documents = loader.load()
+    return documents
+
+# Run the copilot
+copilot()
+```
+
+**After restarting the copilot we can compare the results again:**
+
+<img height="200" src="/images/tutorial/compare-3.png" />
+
+**Looks good!** This now looks and feels more like the production version of RPM copilot.
+1. Copilot is grounded to the latest up to date documentation (knowledge base)
+2. Prompt instructs the copilot to be much more collaborative and useful to the developer
+
+### Conclusion
+
+In this tutorial, we explored how to quickly build a developer tooling copilot similar to what Ready Player Me built with the OpenCopilot Python library.
+Using techniques such as RAG to add RPM developer docs as knowledge base to the copilot and prompt engineering to guide it’s behaviour, the copilot can now assist users to easily integrate RPM avatars into their projects and help them get unstuck.
+
+### What next?
+
+- Try using GPT4 as LLM
+- Add more data to knowledge base (for example a blog post)
+- Prompt engineer the copilot to behave more like you would want it to (for example, the production RPM copilot is not a verbose as what we built)
+- Inspired by RPM, it’s time to build your own Copilot
